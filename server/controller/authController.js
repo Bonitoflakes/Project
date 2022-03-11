@@ -7,8 +7,8 @@ const signUpNewUser = async (req, res) => {
    try {
        console.log(`new user signup route`);
 
-       const { username, password } = req.body;
-       const user = await User.create({username,password})
+       const { username,email, password } = req.body;
+       const user = await User.create({username,email,password})
 
         res.status(200).json({
            results: 1,
@@ -21,23 +21,13 @@ const signUpNewUser = async (req, res) => {
        console.log(error);
        res.status(400).json({
            results: 0,
-           status: "failure"
+           status: "failure",
+           message: error
        })
    }
 }
 
-
-const signUpUser = () => {
-    console.log(`user signup route`);
-}
-
-
-const LoginNewUser = () => {
-    console.log(`new user Login route`);
-}
-
-
 const LoginUser = () => {
     console.log(`Login route`);
 }
-export { signUpNewUser, signUpUser, LoginNewUser, LoginUser }
+export { signUpNewUser, LoginUser }
