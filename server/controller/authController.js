@@ -5,7 +5,6 @@ import { User } from "../models/userModel.js";
 // @Method  POST
 const signUpNewUser = async (req, res) => {
    try {
-       console.log(`new user signup route`);
 
        const { username,email, password } = req.body;
        const user = await User.create({username,email,password})
@@ -22,7 +21,7 @@ const signUpNewUser = async (req, res) => {
        res.status(400).json({
            results: 0,
            status: "failure",
-           message: error
+           message: error._message
        })
    }
 }
