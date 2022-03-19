@@ -25,9 +25,9 @@ const userSchema = new mongoose.Schema({
         trim:true,
         type: String,
         required: true,
-        minLength:8
+        minLength: 8,
+        select:false
     },
-    
 }
     // , {timeStamps: true, collection:"collection_name"}
 );
