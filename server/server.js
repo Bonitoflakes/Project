@@ -2,21 +2,16 @@ import express from "express";
 import dotenv from 'dotenv';
 import { connectDB } from "./config/db.js";
 import { router } from "./routes/authRoutes.js";
+import cors from 'cors';
 
 dotenv.config({ path: "./config/config.env" });
 
 
 const app = express();
+
 connectDB();
 
-
-// Middlewares
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); 
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+app.use(cors());
 
 app.use(express.json());
 app.get("/",(req,res)=>res.send("Welcome to HOME"))

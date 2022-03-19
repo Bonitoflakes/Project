@@ -1,35 +1,18 @@
-import React,{useState} from 'react'
-import axios from "axios";
+import React from 'react'
+import { BrowserRouter,  Route, Routes,} from "react-router-dom";
+import { Login } from './pages/login.page';
+import { Register } from './pages/register.page';
 
 const App = () => {
-  
-  const [username, setUsername] = useState('Anonymous');
-  const [email, setEmail] = useState('abc@gmail.com');
-  const [password, setPassword] = useState('password');
-
-  const sendRequest = async (a, b, c) => {
-    try {
-      const data = await axios.post("http://localhost:3100/api/users/signup", {
-        username: a,
-        email: b,
-        password:c
-      })
-      console.log(data);
-      
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   return (
-    <>
-    <div>Sign Up Page</div>
-    <input type="text" onChange={(e)=>setUsername(e.target.value)}/>
-    <input type="text" onChange={(e)=>setEmail(e.target.value)}/>
-    <input type="text" onChange={(e) => setPassword(e.target.value)} />
-    <button onClick={()=>sendRequest(username,email,password)}>Submit</button>  
-    </>
+    <BrowserRouter>
+    <Routes>
+        <Route path='/register' element={<Register/>}/>
+        <Route path='/login' element={<Login/>}/>
+    </Routes>
+    </BrowserRouter>
   )
+ 
 }
 
 export default App;
