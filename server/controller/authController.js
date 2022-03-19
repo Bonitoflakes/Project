@@ -34,10 +34,10 @@ const LoginUser = async (req,res) => {
             const token = jwt.sign({
                 email: user.email,
                 name: user.name
-            },'secretKey')
-            return res.json({status:true,user:"Login Successful",token})
+            },process.env.SECRET_KEY)
+            return res.json({status:true,message:"Login Successful",token})
         } else {
-            return res.json({status:false,user:"Invalid username or password"})
+            return res.json({status:false,message:"Invalid username or password"})
         }
         
     } catch (error) {
