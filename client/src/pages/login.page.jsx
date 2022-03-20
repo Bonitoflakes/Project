@@ -1,9 +1,11 @@
 import {useState} from 'react'
 import axios  from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('abc@gmail.com');
   const [password, setPassword] = useState('password');
+  const history = useNavigate();
   
   const sendRequest = async (b, c) => {
     try {
@@ -13,11 +15,14 @@ function Login() {
       })
       console.log(user.data);
       if (user.data.status) {
-        console.log(user.data.user);
+        console.log(user.data.message);
+        localStorage.setItem('token', user.data.token)
+        history('/dashboard')
       }
       else {
         console.log(user.data.message);
       }
+      
     } catch (error) {
       console.log(error);
     }
