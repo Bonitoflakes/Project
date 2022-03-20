@@ -29,11 +29,11 @@ const LoginUser = async (req,res) => {
         
         const { email, password } = req.body;
         const user =  await User.findOne({email,password})
-        
+        console.log(user);
         if (user) {
             const token = jwt.sign({
-                email: user.email,
-                name: user.name
+                name: user.name,
+                id:user._id
             },process.env.SECRET_KEY)
             return res.json({status:true,message:"Login Successful",token})
         } else {
