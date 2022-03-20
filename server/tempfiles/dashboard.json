@@ -1,0 +1,44 @@
+{
+    "_id": {
+        "$oid": "623719769794b695f499ad01"
+    },
+    "portfolio_coins": [
+        {
+            "qty": 0,
+            "total_cost": 0,
+            "total_market_value": 0,
+            "profit_loss": 0,
+            "portfolio_coin_id": {
+              "$oid":"623719769794b695f49fadfg"
+            }
+        }   , {
+            "qty": 10,
+            "total_cost": 10,
+            "total_market_value": 200,
+            "profit_loss": 190,
+            "portfolio_coin_id": {
+              "$oid":"623719769794b695f49fadfg"
+            }
+        }  
+]        
+}
+
+{
+    "portfolio_coins": [{
+        "qty": 0,
+        "total_cost": 0,
+        "total_market_value": 0,
+        "profit_loss": 0,
+        "portfolio_coin_id": {
+            "$oid": "623719769794b695f49fadfg"
+        }
+    }, {
+        "qty": 0,
+        "total_cost": 0,
+        "total_market_value": 0,
+        "profit_loss": 0,
+        "portfolio_coin_id": {
+            "$oid": "623719769794b695f49fadfg"
+        }
+    }]
+}
