@@ -7,7 +7,7 @@ const connectDB = async () => {
                 useNewUrlParser: true, useUnifiedTopology: true,
             });
         console.log(`Connected to the database successfully, ${conn.connection.host}`);
-       console.log(mongoose.modelNames());
+        console.log(`Available Models in the database:  ${mongoose.modelNames()}`);
     } catch (error) {
         console.log(`Error while connecting to the database : ${error}`);
     }
