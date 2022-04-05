@@ -36,7 +36,9 @@ export default function App() {
             <HamburgerMenu src={hamburger}/>
           </SearchandHamWrapper>
         </HeaderP1>
+        <Line/>
         <HeaderP2 />
+        <Line/>
       </HeaderWrapper>
     </div>
   );
@@ -44,13 +46,20 @@ export default function App() {
 
 const HeaderWrapper = styled.header`
   // background-color: pink;
-  padding: 0 3.5rem;
+  // padding: 0 3.5rem;
   min-height: 9.5rem;
 `;
+
+const Line = styled.div`
+border-bottom: 1px solid black;
+width: 100vw;
+height: 1px;
+`
 
 const HeaderP1 = styled.div`
   // background-color: yellow;
   min-height: 6rem;
+  padding: 0 3.5rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -59,6 +68,8 @@ const HeaderP1 = styled.div`
 const HeaderP2 = styled.div`
   background-color: brown;
   min-height: 3.5rem;
+  margin: 0 3.5rem;
+
 `;
 
 const SearchandHamWrapper = styled.div`
