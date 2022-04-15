@@ -27,59 +27,134 @@ import search from './assets/search.svg'
 
 export default function App() {
   return (
-    <div className="App">
       <HeaderWrapper>
-        <HeaderP1>
-          <Logo src={logo}/>
-          <SearchandHamWrapper>
-            <SearchBar src={search}/>
-            <HamburgerMenu src={hamburger}/>
-          </SearchandHamWrapper>
-        </HeaderP1>
-        <Line/>
-        <HeaderP2 />
-        <Line/>
+        <NavBar>
+        <Container>
+          <Logo>
+            <img src={logo} alt="Coinmarketcap" title="Go to Homepage" />
+          </Logo>
+          
+          <LinksWrapper>
+          <div className="cmc-link">
+            <a href="/">Cryptocurrencies</a>
+          </div>
+          
+          <div className="cmc-link">
+            <a href="/">Exchanges</a>
+          </div>
+          
+          <div className="cmc-link">
+            <a href="/">NFT</a>
+          </div>
+          
+          <div className="cmc-link">
+            <a href="/">CrypTown</a>
+          </div>
+          
+            <div className="cmc-link">
+            <a href="/">Portfolio</a>
+          </div>
+          
+          <div className="cmc-link">
+            <a href="/">WatchList</a>
+          </div>
+          
+          <div className="cmc-link">
+            <a href="/">Products</a>
+          </div>
+          
+          <div className="cmc-link">
+            <a href="/">Learn</a>
+          </div>
+          
+          </LinksWrapper>
+
+          <ButtonWrapper>
+            <LoginButton>Login</LoginButton>
+            <SignUpButton>Sign Up</SignUpButton>
+            <Search type='text' placeholder="Search ..."/>
+          </ButtonWrapper>
+          
+          </Container>
+        </NavBar>  
       </HeaderWrapper>
-    </div>
   );
 }
 
 const HeaderWrapper = styled.header`
-  // background-color: pink;
-  // padding: 0 3.5rem;
   min-height: 9.5rem;
 `;
 
-const Line = styled.div`
-border-bottom: 1px solid black;
-width: 100vw;
-height: 1px;
-`
-
-const HeaderP1 = styled.div`
-  // background-color: yellow;
+const NavBar = styled.div`
+  border-bottom: 1px solid black;
+  width:100vw;
   min-height: 6rem;
   padding: 0 3.5rem;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  align-items:center ;
+  justify-content:center ;
+
+  @media screen and (max-width: 768px){
+    padding : 0 1rem;
+  }
+
+`
+
+const Container = styled.div`
+width: 100vw;
+max-width: 1400px;
+display: flex;
+align-items: center;
+/* justify-content: space-around ; */
+margin:0 1rem;
 `;
-const HeaderP2 = styled.div`
-  background-color: brown;
-  min-height: 3.5rem;
-  margin: 0 3.5rem;
+
+const Logo = styled.div`
+cursor: pointer;
+margin-right: 3rem ;
+`;
+
+const LinksWrapper = styled.div`
+    display: flex;
+`;
+
+const ButtonWrapper = styled.div`
 
 `;
+const Button = styled.button`
+    font-size: 600;
+    height: 3.6rem;
+    background: rgb(56, 97, 251);
+    outline: none;
+    border: none;
+    color: white;
+    padding: 0 1.6rem;
+    margin-right: 2rem;
+    border-radius: 10px;
+    cursor: pointer;
 
-const SearchandHamWrapper = styled.div`
-display:flex;
-align-items:center;
-margin:1rem;
-`;
+    &:hover{
+    background: rgb(11, 64, 255);
+    }
+`
 
-const Logo = styled.img``;
-const SearchBar = styled.img`
-margin:0 1.5rem;
-`;
-const HamburgerMenu = styled.img``;
+const SignUpButton = styled(Button)`
+     background: whitesmoke;
+      color: black;
+`
+
+const LoginButton = styled(Button)``;
+
+const Search = styled.input`
+    height: 3.6rem;
+    background: rgb(239, 242, 245);
+    color: rgb(166, 176, 195);
+    border-radius: 8px;
+    padding:0 0.8rem;
+    border: none;
+    outline: none;
+
+    &:focus{
+      color: darksalmon;
+    }
+`
