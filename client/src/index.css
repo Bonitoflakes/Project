@@ -18,10 +18,3 @@ a{
 a:hover{
     color: #3861fb;
 }
-
-.cmc-link a{
-    font-size: 1.4rem;
-    font-weight: 600;
-    padding-right: 0.8rem;
-    margin-right: 1.5rem;
-}
