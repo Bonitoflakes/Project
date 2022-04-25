@@ -87,6 +87,7 @@ const Portfolio = () => {
         showAddAssetModel={showAddAssetModel}
         setShowAddAssetModel={setShowAddAssetModel}
         setUserTransactions={setUserTransactions}
+        userTransactions={userTransactions}
       />
     </>
   );

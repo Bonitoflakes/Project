@@ -14,7 +14,12 @@ import {
   TitleWrapper,
 } from "./utils/UI_Kit";
 
-const AddassetsModal = ({ showAddAssetModel, setShowAddAssetModel }) => {
+const AddassetsModal = ({
+  showAddAssetModel,
+  setShowAddAssetModel,
+  setUserTransactions,
+  userTransactions,
+}) => {
   const [showFeesNotes, setShowFeesNotes] = useState(false);
   const { accessToken } = useContext(AuthContext);
 
@@ -44,7 +49,7 @@ const AddassetsModal = ({ showAddAssetModel, setShowAddAssetModel }) => {
     });
   }, [transactionDetails.quantity, transactionDetails.price]);
 
-  // * Handles form submit
+  // * Handles add asset form submit
   const handleTransaction = (e) => {
     e.preventDefault();
     console.table(transactionDetails);
@@ -59,10 +64,12 @@ const AddassetsModal = ({ showAddAssetModel, setShowAddAssetModel }) => {
         },
       }
     );
-    console.log(data);
+    console.log(`Data sent to the server: ${data}`);
+    setUserTransactions([...userTransactions, transactionDetails]);
     setShowAddAssetModel((prev) => !prev);
   };
 
+  // * handles overall form value changes
   const handleFormValueChange = (e) => {
     setTransactionDetails({
       ...transactionDetails,
