@@ -34,7 +34,8 @@ const LoginUser = async (req, res) => {
           name: user.name,
           id: user._id,
         },
-        process.env.SECRET_KEY
+        process.env.SECRET_KEY,
+        { expiresIn: process.env.JWT_EXPIRES_IN }
       );
       return res
         .header("access-token", token)
