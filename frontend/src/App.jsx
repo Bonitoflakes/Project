@@ -5,8 +5,8 @@ import {
   Route,
   Link,
   NavLink,
-  useParams,
   Outlet,
+  useNavigate,
 } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import PortfolioPage from "./pages/PortfolioPage";
@@ -20,6 +20,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        {/* <Route path="/login" element={<LoginModal />} /> */}
         <Route path="/portfolio" element={<PortfolioPage />} />
       </Routes>
       {isLoginModalOpen && <LoginModal />}

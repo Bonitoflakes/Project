@@ -7,8 +7,12 @@ import { AuthContext } from "../contexts/authContext";
 const LoginModal = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { loginModalClose, redirectToSignup, setIsAuthenticated } =
-    useContext(AuthContext);
+  const {
+    loginModalClose,
+    redirectToSignup,
+    setIsAuthenticated,
+    setAccessToken,
+  } = useContext(AuthContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -21,10 +25,11 @@ const LoginModal = () => {
       });
       console.log(user.data);
       setIsAuthenticated(user.data.status);
+      setAccessToken(user.data.token);
     } catch (error) {
       console.log(error);
     }
-    modalClose();
+    loginModalClose();
   };
   return (
     <>

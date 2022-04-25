@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       minLength: 8,
-      select: false,
+      // select: false,
     },
     role: {
       type: String,
@@ -35,14 +35,30 @@ const userSchema = new mongoose.Schema(
   },
   { timeStamps: true, collection: "users" }
 );
-
 // Mongoose Hooks
-userSchema.pre('save',async function (next) {
-    const salt = await bcrypt.genSalt();
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
+userSchema.pre("save", async function (next) {
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
 });
 
+userSchema.statics.login = async function (email, password) {
+  try {
+    const user = await this.findOne({ email });
+    console.log(`userVal : ${user}`);
+    if (user) {
+      const auth = await bcrypt.compare(password, user.password);
+      console.log(`AuthVal : ${auth}`);
+      if (auth) {
+        return user;
+      } else {
+        console.log("idk some errro");
+      }
+    }
+  } catch (error) {
+    console.log(`Error: ${error}`);
+  }
+};
 const User = mongoose.model("user", userSchema);
 
 export { User };

@@ -9,8 +9,13 @@ import { NavLink } from "react-router-dom";
 import { AuthContext } from "../contexts/authContext";
 
 const Navbar = () => {
-  const { loginModalOpen, signupModalOpen, isAuthenticated } =
-    useContext(AuthContext);
+  const {
+    loginModalOpen,
+    signupModalOpen,
+    isAuthenticated,
+    setIsAuthenticated,
+    setAccessToken,
+  } = useContext(AuthContext);
 
   const [isVisible, setisVisible] = useState(false);
   return (
@@ -41,7 +46,20 @@ const Navbar = () => {
            //TODO: Show logOut if user is authenticated
            */}
 
-          {isAuthenticated && <FaUserAlt />}
+          {isAuthenticated && (
+            <>
+              <FaUserAlt />{" "}
+              <a
+                href="/"
+                onClick={() => {
+                  setIsAuthenticated(false);
+                  setAccessToken("");
+                }}
+              >
+                Logout
+              </a>
+            </>
+          )}
         </LinksWrapper>
 
         <MobileNavWrapper onClick={() => setisVisible((prev) => !prev)}>

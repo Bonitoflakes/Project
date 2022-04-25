@@ -26,8 +26,8 @@ const signUpNewUser = async (req, res) => {
 const LoginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email, password });
-    console.log(user);
+    const user = await User.login(email, password);
+    console.log(`user : ${user}`);
     if (user) {
       const token = jwt.sign(
         {

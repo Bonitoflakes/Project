@@ -6,6 +6,6 @@ const router = Router();
 
 // @desc    Dashboard route
 // @Method  GET
-router.get("/", verifyJWT, getDashboardDetails);
+router.get("/dashboard", verifyJWT, getDashboardDetails);
 
 export { router };

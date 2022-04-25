@@ -13,7 +13,13 @@ const Coin = ({
     <tbody>
       <Row>
         <Cell>
-          <img src={image} alt="crypto" width={35} height={35} />
+          <img
+            src={image}
+            alt="crypto"
+            width={35}
+            height={35}
+            style={{ width: "35px", height: "35px" }}
+          />
         </Cell>
         <Cell>{symbol.toUpperCase()}</Cell>
         <Cell>{name}</Cell>

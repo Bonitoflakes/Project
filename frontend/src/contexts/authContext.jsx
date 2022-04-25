@@ -6,11 +6,17 @@ const AuthProvider = ({ children }) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [accessToken, setAccessToken] = useState("");
 
   const signupModalOpen = () => setIsSignupModalOpen(true);
   const signupModalClose = () => setIsSignupModalOpen(false);
   const loginModalOpen = () => setIsLoginModalOpen(true);
   const loginModalClose = () => setIsLoginModalOpen(false);
+
+  const logOut = () => {
+    setIsAuthenticated(false);
+    setAccessToken("");
+  };
 
   const redirectToLogin = () => {
     signupModalClose();
@@ -35,6 +41,9 @@ const AuthProvider = ({ children }) => {
         setIsAuthenticated,
         redirectToLogin,
         redirectToSignup,
+        setAccessToken,
+        accessToken,
+        logOut,
       }}
     >
       {children}

@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, useContext } from "react";
+import axios from "axios";
+import { AuthContext } from "../contexts/authContext";
 import {
   CloseButton,
   Container,
@@ -15,6 +16,7 @@ import {
 
 const AddassetsModal = ({ showAddAssetModel, setShowAddAssetModel }) => {
   const [showFeesNotes, setShowFeesNotes] = useState(false);
+  const { accessToken } = useContext(AuthContext);
 
   const initState = {
     assetName: "",
@@ -42,6 +44,25 @@ const AddassetsModal = ({ showAddAssetModel, setShowAddAssetModel }) => {
     });
   }, [transactionDetails.quantity, transactionDetails.price]);
 
+  // * Handles form submit
+  const handleTransaction = (e) => {
+    e.preventDefault();
+    console.table(transactionDetails);
+    const data = axios.post(
+      "http://localhost:8000/api/user/transaction",
+      {
+        transactionDetails,
+      },
+      {
+        headers: {
+          "access-token": accessToken,
+        },
+      }
+    );
+    console.log(data);
+    setShowAddAssetModel((prev) => !prev);
+  };
+
   const handleFormValueChange = (e) => {
     setTransactionDetails({
       ...transactionDetails,
@@ -55,12 +76,6 @@ const AddassetsModal = ({ showAddAssetModel, setShowAddAssetModel }) => {
       total: e.target.value,
       price: e.target.value / transactionDetails.quantity,
     });
-  };
-
-  const handleTransaction = (e) => {
-    e.preventDefault();
-    console.table(transactionDetails);
-    setShowAddAssetModel((prev) => !prev);
   };
 
   return (
