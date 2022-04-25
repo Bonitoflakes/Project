@@ -7,9 +7,9 @@ const PlaceholderPortfolio = () => {
   return (
     <>
       <Container>
-        <Wrapper>
+        <PlaceholderWrapper>
           <FlexContainer>
-            <TextDiv>
+            <LeftActions>
               <TextH1>Crypto Portfolio Tracker</TextH1>
               <TextPara>
                 Manage and track your crypto investments, transactions, holdings
@@ -21,13 +21,13 @@ const PlaceholderPortfolio = () => {
                 <LoginButton>Login</LoginButton>
                 <Button>Signup</Button>
               </ButtonWrapper>
-            </TextDiv>
+            </LeftActions>
 
-            <ImgDiv>
+            <RightActions>
               <img src={guestPorfolio} alt="portfolio preview for guest" />
-            </ImgDiv>
+            </RightActions>
           </FlexContainer>
-        </Wrapper>
+        </PlaceholderWrapper>
       </Container>
     </>
   );
@@ -35,47 +35,52 @@ const PlaceholderPortfolio = () => {
 
 export { PlaceholderPortfolio };
 
-const Wrapper = styled.div`
+const PlaceholderWrapper = styled.div`
   display: flex;
-  height: calc(100vh - 97px);
+  min-height: calc(100vh - 97px);
   /* background: pink; */
   align-items: center;
 `;
 
 const FlexContainer = styled.div`
   display: flex;
+  width: 100%;
   @media (max-width: 1200px) {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 `;
 
-const TextDiv = styled.div`
+const LeftActions = styled.div`
+  flex: 1 1 0%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: start;
   margin: 2rem 4rem;
-  margin-top: 5rem;
+  /* background-color: orange; */
 `;
 
 const TextH1 = styled.h1`
   font-size: 3.6rem;
+  @media (max-width: 585px) {
+    font-size: 2.6rem;
+  }
 `;
 
 const TextPara = styled.p`
   margin: 2rem 0;
-  width: 45rem;
   font-size: 1.6rem;
   line-height: 2.4rem;
 `;
 
-const LoginButton = styled(Button)`
-  margin-right: 2rem;
-`;
-
-const ImgDiv = styled.div`
-  @media (min-width: 1200px) {
-    height: 50%;
+const RightActions = styled.div`
+  flex: 1.3 1 0%;
+  @media (max-width: 1200px) and (min-width:1000px) {
+    padding: 0 10rem;
   }
 `;
 const ButtonWrapper = styled.div``;
+
+const LoginButton = styled(Button)`
+  margin-right: 2rem;
+`;
