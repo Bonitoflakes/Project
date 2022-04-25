@@ -13,7 +13,7 @@ const TransactionTable = () => {
                 <Head>Quantity</Head>
                 <Head>Price</Head>
                 <Head>Total</Head>
-                <Head>Date & Time</Head>
+                <Head>Date</Head>
               </Row>
             </thead>
             {data}
@@ -36,9 +36,11 @@ const OverflowXAuto = styled.div`
 `;
 
 const Table = styled.table`
-  margin-top: 3rem;
   border-spacing: 0;
   width: 100%;
+  @media screen and (max-width: 1024px) {
+    margin-top: 3rem;
+  }
 `;
 
 const Row = styled.tr`

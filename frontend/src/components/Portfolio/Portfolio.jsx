@@ -53,7 +53,7 @@ const Portfolio = () => {
 
         <PortfolioBody>
           <div className="solidDivWrapper">
-            <div className="solidDiv"></div>
+            <div className="solidDiv">Under Construction</div>
           </div>
           <RecentTransactions>
             <OverflowXAuto>
@@ -73,8 +73,12 @@ const Portfolio = () => {
                       <Cell>{el.assetName}</Cell>
                       <Cell>{el.quantity}</Cell>
                       <Cell>{el.price}</Cell>
-                      <Cell>{el.date}</Cell>
-                      <Cell>{el.time}</Cell>
+                      <Cell>{el.total}</Cell>
+                      <Cell>
+                        {el.time}
+                        &nbsp;
+                        {el.date}
+                      </Cell>
                     </Row>
                   ))}
                 </tbody>
@@ -155,9 +159,11 @@ const OverflowXAuto = styled.div`
 `;
 
 const Table = styled.table`
-  margin-top: 3rem;
   border-spacing: 0;
   width: 100%;
+  @media screen and (max-width: 1023px) {
+    margin-top: 3rem;
+  }
 `;
 
 const Row = styled.tr`
