@@ -7,10 +7,12 @@ const AuthProvider = ({ children }) => {
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [accessToken, setAccessToken] = useState("");
+  const [showHamburger, setShowHamburger] = useState(false);
 
   const signupModalOpen = () => setIsSignupModalOpen(true);
-  const signupModalClose = () => setIsSignupModalOpen(false);
   const loginModalOpen = () => setIsLoginModalOpen(true);
+
+  const signupModalClose = () => setIsSignupModalOpen(false);
   const loginModalClose = () => setIsLoginModalOpen(false);
 
   const logOut = () => {
@@ -44,6 +46,8 @@ const AuthProvider = ({ children }) => {
         setAccessToken,
         accessToken,
         logOut,
+        showHamburger,
+        setShowHamburger,
       }}
     >
       {children}

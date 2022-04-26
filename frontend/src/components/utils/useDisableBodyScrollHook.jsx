@@ -1,12 +1,18 @@
 import { useEffect } from "react";
 
-const useDisableBodyScroll = (boolVal) => {
+const useDisableBodyScroll = (...params) => {
   useEffect(() => {
-    if (boolVal) {
+    console.log("body scroll effect running...");
+    let [a, b, c] = params;
+    if (a || b || c) {
+      // console.error(`Value of the state : ${boolVal}`);
       document.body.style.overflow = "hidden";
     }
-    return () => (document.body.style.overflow = "unset");
-  }, [boolVal]);
+    return () => {
+      console.log("cleanup running...");
+      document.body.style.overflow = "unset";
+    };
+  }, [params]);
 };
 
 export { useDisableBodyScroll };

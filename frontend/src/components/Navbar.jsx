@@ -16,13 +16,9 @@ const Navbar = () => {
     isAuthenticated,
     setIsAuthenticated,
     setAccessToken,
+    showHamburger,
+    setShowHamburger,
   } = useContext(AuthContext);
-
-  const [isVisible, setisVisible] = useState(false);
-
-  useDisableBodyScroll(isVisible);
-  useDisableBodyScroll(loginModalOpen);
-  useDisableBodyScroll(signupModalOpen);
 
   return (
     <Container>
@@ -31,7 +27,7 @@ const Navbar = () => {
           <img src={logo} alt="Logo" title="Go To Homepage" />
         </Logo>
 
-        <LinksWrapper isVisible={isVisible}>
+        <LinksWrapper showHamburger={showHamburger}>
           <CmcLink to="/">Cryptocurrencies</CmcLink>
           <CmcLink to="/portfolio">Portfolio</CmcLink>
 
@@ -43,7 +39,7 @@ const Navbar = () => {
             <ButtonWrapper>
               <LoginButton onClick={loginModalOpen}>Login</LoginButton>
               <SignUpButton onClick={signupModalOpen}>
-                {isVisible ? "Create an account now" : "Sign Up"}
+                {showHamburger ? "Create an account now" : "Sign Up"}
               </SignUpButton>
             </ButtonWrapper>
           )}
@@ -68,7 +64,7 @@ const Navbar = () => {
           )}
         </LinksWrapper>
 
-        <MobileNavWrapper onClick={() => setisVisible((prev) => !prev)}>
+        <MobileNavWrapper onClick={() => setShowHamburger((prev) => !prev)}>
           <MobileHamburger
             src={hamburger}
             title="click to open hamburger menu"
@@ -116,7 +112,7 @@ const LinksWrapper = styled.div`
     font-size: min(34px, 5vw);
     transition: transform 0.2s ease-out;
     transform: ${(props) =>
-      props.isVisible ? "translateX(0)" : "translateX(-150%)"};
+      props.showHamburger ? "translateX(0)" : "translateX(-150%)"};
   }
 `;
 
