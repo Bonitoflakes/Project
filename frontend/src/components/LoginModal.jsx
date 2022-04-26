@@ -12,6 +12,7 @@ const LoginModal = () => {
     redirectToSignup,
     setIsAuthenticated,
     setAccessToken,
+    setShowHamburger,
   } = useContext(AuthContext);
 
   const handleSubmit = async (event) => {
@@ -26,10 +27,15 @@ const LoginModal = () => {
       console.log(user.data);
       setIsAuthenticated(user.data.status);
       setAccessToken(user.data.token);
+      if (!user.data.status) {
+        alert("Invalid Username or Password");
+        return;
+      }
+      loginModalClose();
+      setShowHamburger(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
-    loginModalClose();
   };
   return (
     <>
