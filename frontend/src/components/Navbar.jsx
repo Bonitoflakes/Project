@@ -7,6 +7,7 @@ import { Container } from "./utils/UI_Kit";
 import { FaUserAlt } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../contexts/authContext";
+import { useDisableBodyScroll } from "./utils/useDisableBodyScrollHook";
 
 const Navbar = () => {
   const {
@@ -18,6 +19,11 @@ const Navbar = () => {
   } = useContext(AuthContext);
 
   const [isVisible, setisVisible] = useState(false);
+
+  useDisableBodyScroll(isVisible);
+  useDisableBodyScroll(loginModalOpen);
+  useDisableBodyScroll(signupModalOpen);
+
   return (
     <Container>
       <Nav>
