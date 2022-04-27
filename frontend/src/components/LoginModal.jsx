@@ -53,6 +53,7 @@ const LoginModal = () => {
               autoComplete="username"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
             <PasswordLabelWrapper>
               <Label htmlFor="password">Password</Label>
@@ -64,6 +65,8 @@ const LoginModal = () => {
               autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              minLength="8"
+              required
             />
             <LoginButton type="submit">Login</LoginButton>
           </Form>
