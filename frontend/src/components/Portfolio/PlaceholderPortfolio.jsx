@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Container } from "../utils/UI_Kit";
 import styled from "styled-components";
-import guestPorfolio from "../../assets/portfolio-guest-preview.jpg";
+import guestPorfolio from "../../assets/portfolio-guest-preview.png";
 
 const PlaceholderPortfolio = () => {
   return (
@@ -75,7 +75,7 @@ const TextPara = styled.p`
 
 const RightActions = styled.div`
   flex: 1.3 1 0%;
-  @media (max-width: 1200px) and (min-width:1000px) {
+  @media (max-width: 1200px) and (min-width: 1000px) {
     padding: 0 10rem;
   }
 `;
