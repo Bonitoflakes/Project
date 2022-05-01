@@ -31,6 +31,15 @@ img {
   height: 100%;
 }
 
+/* * Remove Arrows from inputs*/
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+input[type="number"] {
+  appearance: none;
+}
+
 .active {
   color: var(--blue-variant-hover-dark);
 }
