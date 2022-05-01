@@ -25,6 +25,7 @@ const Portfolio = () => {
         );
         console.log(data);
         setUserTransactions(data.transactionDetails);
+        alert(userTransactions);
       } catch (error) {
         console.error(error);
       }
@@ -61,6 +62,7 @@ const Portfolio = () => {
                 <thead>
                   <Row>
                     <Head>Type</Head>
+                    <Head>Asset</Head>
                     <Head>Quantity</Head>
                     <Head>Price</Head>
                     <Head>Total</Head>
@@ -70,6 +72,7 @@ const Portfolio = () => {
                 <tbody>
                   {userTransactions.map((el) => (
                     <Row key={el._id || Math.random()}>
+                      <Cell>{el.transactionType}</Cell>
                       <Cell>{el.assetName}</Cell>
                       <Cell>{el.quantity}</Cell>
                       <Cell>{el.price}</Cell>

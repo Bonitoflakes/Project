@@ -8,6 +8,11 @@ const transactionSchema = new mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: "user",
     },
+    transactionType: {
+      type: String,
+      enum: ["BUY", "SELL"],
+      required: true,
+    },
     assetName: {
       type: String,
       required: true,
