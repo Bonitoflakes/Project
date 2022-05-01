@@ -90,6 +90,7 @@ const Input = styled.input`
   padding: 0 1.5rem;
   font-size: 1.4rem;
   margin: 1rem 0;
+  appearance: none;
 
   &::placeholder {
     color: var(--gray-primary);

@@ -101,12 +101,12 @@ const LinksWrapper = styled.div`
   /* background: white; */
   align-items: center;
   font-size: 1.4rem;
-  @media screen and (max-width: 1201px) {
+  @media screen and (max-width: 1200px) {
     align-items: stretch;
     flex-direction: column;
     position: absolute;
     top: 7.8rem;
-    height: calc(100vh - 6.5rem);
+    height: calc(100vh - 8.1rem);
     width: 100%;
     background: white;
     font-size: min(34px, 5vw);
