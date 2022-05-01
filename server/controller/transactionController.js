@@ -17,10 +17,20 @@ const getTransactions = async (req, res) => {
 const addNewTransaction = async (req, res) => {
   try {
     console.log(req.body.transactionDetails);
-    const { assetName, quantity, price, date, time, total, notes, fees } =
-      req.body.transactionDetails;
+    const {
+      transactionType,
+      assetName,
+      quantity,
+      price,
+      date,
+      time,
+      total,
+      notes,
+      fees,
+    } = req.body.transactionDetails;
     const transactionDetails = await Transaction.create({
       userID: req.user.id,
+      transactionType,
       assetName,
       quantity,
       price,
