@@ -1,0 +1,49 @@
+<!-- * Step 1 :  -->
+Go to the installation location of mongoDB 
+generally @ C:\Program Files\MongoDB\Server\5.0\bin
+add this to PATH as an environment variable 
+
+BLOG LINK :: https://www.bmc.com/blogs/mongodb-replication/
+
+<!-- * To create instances of mongoDB :  -->
+
+mongod --port 2717 --dbpath D:\CryptoVerse\rs1 --replSet ThreeReplicationSets --logpath D:\CryptoVerse\rs1\1.log --logappend
+mongod --port 2717 --dbpath D:\CryptoVerse\rs1 --replSet ThreeReplicationSets 
+
+mongod --port 2717 --dbpath D:\CryptoVerse\rs2 --replSet ThreeReplicationSets --logpath D:\CryptoVerse\rs2\2.log --logappend
+mongod --port 2718 --dbpath D:\CryptoVerse\rs2 --replSet ThreeReplicationSets 
+
+mongod --port 2717 --dbpath D:\CryptoVerse\rs2 --replSet ThreeReplicationSets --logpath D:\CryptoVerse\rs3\3.log --logappend
+mongod --port 2719 --dbpath D:\CryptoVerse\rs3 --replSet ThreeReplicationSets 
+
+mongo --port 2717
+
+config = { _id:"ThreeReplicationSets" , members:[
+{_id:0,host:"localhost:2717"},
+{_id:1,host:"localhost:2718"},
+{_id:2,host:"localhost:2719"}
+]
+}
+
+rs.initiate(config)
+
+<!-- * To add secondary nodes:  -->
+
+rs.add('localhost:2718') 
+rs.add('localhost:2719')
+
+<!-- * To check the status:  -->
+
+rs.status()
+
+<!-- * To enable reads on secondary nodes:  -->
+
+rs.secondaryOk()
+
+show dbs
+
+db.users.insertOne({name:"Rishab rocks"})
+
+<!-- * Connection String -->
+
+mongodb://localhost:2717,localhost:2718,localhost:2719/?replicaSet=ThreeReplicationSets
