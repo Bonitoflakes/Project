@@ -10,8 +10,6 @@ dotenv.config({ path: "./config/config.env" });
 
 const app = express();
 
-connectDB();
-
 app.use(cors());
 
 app.use(express.json());
@@ -22,5 +20,6 @@ app.use("/api/user/", TransactionRouter);
 
 // Server init
 app.listen(process.env.PORT, () => {
+  connectDB();
   console.log(`Listening on port ${process.env.PORT}`);
 });
