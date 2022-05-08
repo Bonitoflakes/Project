@@ -102,8 +102,9 @@ const LinksWrapper = styled.div`
   align-items: center;
   font-size: 1.4rem;
   @media screen and (max-width: 1200px) {
-    align-items: stretch;
     flex-direction: column;
+    z-index: 999;
+    align-items: stretch;
     position: absolute;
     top: 7.8rem;
     height: calc(100vh - 8.1rem);
