@@ -3,6 +3,7 @@ import googleLogo from "../assets/google.svg";
 import { useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../contexts/authContext";
+import { ModalWrapper } from "./utils/UI_Kit";
 
 const SignupModal = () => {
   const [username, setUsername] = useState("");
@@ -97,25 +98,25 @@ const SignupModal = () => {
 
 export default SignupModal;
 
-const ModalWrapper = styled.div`
-  width: 100%;
-  /* height: calc(100% - 9rem); */
-  /* filter: blur(8px); */
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: rgba(200, 200, 200, 0.4);
-  background: #11182766;
-  backdrop-filter: blur(2px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: rgb(255, 255, 255) 0 0 0 0, rgb(147, 197, 253) 0 0 0 3px;
-  @media screen and (max-width: 575px) {
-    align-items: flex-end;
-  }
-`;
+// const ModalWrapper = styled.div`
+//   width: 100%;
+//   /* height: calc(100% - 9rem); */
+//   /* filter: blur(8px); */
+//   height: 100%;
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   background: rgba(200, 200, 200, 0.4);
+//   background: #11182766;
+//   backdrop-filter: blur(2px);
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   box-shadow: rgb(255, 255, 255) 0 0 0 0, rgb(147, 197, 253) 0 0 0 3px;
+//   @media screen and (max-width: 575px) {
+//     align-items: flex-end;
+//   }
+// `;
 
 const ModalContainer = styled.div`
   width: 384px;

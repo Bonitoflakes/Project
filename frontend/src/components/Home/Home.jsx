@@ -44,32 +44,32 @@ const Home = () => {
         />
         <OverflowXAuto>
           <Table>
-            <thead>
+            <THead>
               <Row>
                 <Head>Ticker</Head>
-                <Head>Symbol</Head>
                 <Head>Name</Head>
                 <Head>Price</Head>
                 <Head>Volume</Head>
                 <Head>Change</Head>
                 <Head>Market Cap</Head>
               </Row>
-            </thead>
-
-            {filteredCoins.map((coin) => {
-              return (
-                <Coin
-                  key={coin.id}
-                  name={coin.name}
-                  image={coin.image}
-                  symbol={coin.symbol}
-                  volume={coin.total_volume}
-                  marketCap={coin.market_cap}
-                  price={coin.current_price}
-                  priceChange={coin.price_change_percentage_24h}
-                />
-              );
-            })}
+            </THead>
+            <tbody>
+              {filteredCoins.map((coin) => {
+                return (
+                  <Coin
+                    key={coin.id}
+                    name={coin.name}
+                    image={coin.image}
+                    symbol={coin.symbol}
+                    volume={coin.total_volume}
+                    marketCap={coin.market_cap}
+                    price={coin.current_price}
+                    priceChange={coin.price_change_percentage_24h}
+                  />
+                );
+              })}
+            </tbody>
           </Table>
         </OverflowXAuto>
       </Coincontainer>
@@ -109,15 +109,31 @@ const Table = styled.table`
   margin-top: 3rem;
   border-spacing: 0;
   width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
 `;
 
-const Row = styled.tr`
-  border-spacing: 0;
-`;
+const THead = styled.thead``;
+
+const Row = styled.tr``;
 
 const Head = styled.th`
+  position: sticky;
   font-size: 2rem;
   padding: 1rem;
   border-bottom: 1px solid var(--gray-primary);
-  border-spacing: 0;
+  top: 0;
+  background: white;
+  z-index: 10;
+  &:first-child {
+    position: sticky;
+    font-size: 2rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--gray-primary);
+    top: 0;
+    background: white;
+    z-index: 10;
+    left: 0;
+    z-index: 11;
+  }
 `;

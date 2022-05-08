@@ -44,9 +44,14 @@ const Row = styled.tr`
 const Cell = styled.td`
   padding: 2rem 1rem;
   font-size: 1.4rem;
-  border-bottom: 1px solid black;
   border-bottom: 1px solid var(--gray-primary);
   text-align: center;
+  &:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 10;
+    background-color: white;
+  }
 `;
 
 const CellGreen = styled(Cell)`
