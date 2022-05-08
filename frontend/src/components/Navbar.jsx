@@ -174,23 +174,6 @@ const SignUpButton = styled(Button)`
 
 const LoginButton = styled(Button)``;
 
-const Search = styled.input`
-  height: 3.6rem;
-  background: rgb(239, 242, 245);
-  color: rgb(166, 176, 195);
-  border-radius: 8px;
-  padding: 0 0.8rem;
-  border: none;
-  outline: none;
-  width: max(8vw, 10rem);
-  &:focus {
-    color: darksalmon;
-  }
-  @media screen and (max-width: 1200px) {
-    display: none;
-  }
-`;
-
 const MobileNavWrapper = styled.div`
   @media screen and (min-width: 1201px) {
     display: none;
