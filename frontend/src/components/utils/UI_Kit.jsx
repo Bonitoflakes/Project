@@ -63,6 +63,9 @@ const CloseButton = styled.button`
   &:hover {
     background: var(--gray-variant-hover);
   }
+  &:focus {
+    border: 1px solid black;
+  }
 `;
 
 const Form = styled.form`
@@ -96,7 +99,6 @@ const Input = styled.input`
   &::placeholder {
     color: var(--gray-primary);
   }
-
   &:hover {
     border: 1px solid var(--blue-variant-hover);
   }
@@ -120,6 +122,9 @@ const Button = styled.button`
 
   &:hover {
     background: var(--blue-variant-hover-dark);
+  }
+  &:focus {
+    border: 1px solid black;
   }
 `;
 
