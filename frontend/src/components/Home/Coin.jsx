@@ -48,7 +48,7 @@ const Cell = styled.td`
   text-align: center;
   &:first-child {
     position: sticky;
-    left: 0;
+    left: -1px;
     z-index: 10;
     background-color: white;
   }

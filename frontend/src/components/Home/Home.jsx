@@ -111,6 +111,7 @@ const Table = styled.table`
   width: 100%;
   table-layout: auto;
   border-collapse: collapse;
+  position: relative;
 `;
 
 const THead = styled.thead``;
@@ -118,13 +119,14 @@ const THead = styled.thead``;
 const Row = styled.tr``;
 
 const Head = styled.th`
-  position: sticky;
   font-size: 2rem;
   padding: 1rem;
   border-bottom: 1px solid var(--gray-primary);
-  top: 0;
   background: white;
+  position: sticky;
+  top: 0;
   z-index: 10;
+
   &:first-child {
     position: sticky;
     font-size: 2rem;
@@ -133,7 +135,7 @@ const Head = styled.th`
     top: 0;
     background: white;
     z-index: 10;
-    left: 0;
+    left: -1px;
     z-index: 11;
   }
 `;
