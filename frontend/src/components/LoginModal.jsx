@@ -166,10 +166,13 @@ const RedirectText = styled.p`
   font-size: 1.4rem;
   margin-top: 2rem;
 `;
-const RedirectLink = styled.a`
+const RedirectLink = styled.button`
   color: rgb(55, 97, 251);
   outline: none;
   border: none;
   background: transparent;
   cursor: pointer;
+  &:focus {
+    border: 1px solid black;
+  }
 `;
