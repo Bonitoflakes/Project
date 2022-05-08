@@ -20,6 +20,7 @@ const ModalWrapper = styled.div`
   align-items: center;
   justify-content: center;
   box-shadow: white 0 0 0 0, var(--blue-variant-shadow) 0 0 0 3px;
+  z-index: 1000;
   @media screen and (max-width: 575px) {
     align-items: flex-end;
   }
