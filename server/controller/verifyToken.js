@@ -9,7 +9,7 @@ const verifyJWT = (req, res, next) => {
     // console.log(verified);
     // *adding the verified jwt return value to the header , which is available to the next middleware
     req.user = verified;
-    console.log(req.user.id);
+    // console.log(req.user.id);
     next();
   } catch (error) {
     return res.status(400).send("Invalid Token");

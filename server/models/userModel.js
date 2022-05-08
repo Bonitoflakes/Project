@@ -45,10 +45,10 @@ userSchema.pre("save", async function (next) {
 userSchema.statics.login = async function (email, password) {
   try {
     const user = await this.findOne({ email });
-    console.log(`userVal : ${user}`);
+    // console.log(`userVal : ${user}`);
     if (user) {
       const auth = await bcrypt.compare(password, user.password);
-      console.log(`AuthVal : ${auth}`);
+      // console.log(`AuthVal : ${auth}`);
       if (auth) {
         return user;
       } else {

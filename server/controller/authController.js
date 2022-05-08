@@ -39,7 +39,6 @@ const LoginUser = async (req, res) => {
       );
       return res
         .header("access-token", token)
-        .header("Access-Control-Max-Age", 10)
         .json({ status: true, message: "Login Successful", token });
     } else {
       return res.json({
