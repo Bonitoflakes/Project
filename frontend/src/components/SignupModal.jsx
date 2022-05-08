@@ -3,7 +3,18 @@ import googleLogo from "../assets/google.svg";
 import { useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../contexts/authContext";
-import { ModalWrapper } from "./utils/UI_Kit";
+import {
+  ModalWrapper,
+  ModalContainer,
+  TitleWrapper,
+  Title,
+  CloseButton,
+  Form,
+  Label,
+  LabelWrapper,
+  Input,
+  Button,
+} from "./utils/UI_Kit";
 
 const SignupModal = () => {
   const [username, setUsername] = useState("");
@@ -34,10 +45,10 @@ const SignupModal = () => {
     <>
       <ModalWrapper>
         <ModalContainer>
-          <TitleWithClose>
-            <LoginTitle>SignUp</LoginTitle>
+          <TitleWrapper>
+            <Title>SignUp</Title>
             <CloseButton onClick={signupModalClose}>X</CloseButton>
-          </TitleWithClose>
+          </TitleWrapper>
 
           <Form onSubmit={handleSubmit}>
             <Label htmlFor="username">Username</Label>
@@ -58,9 +69,7 @@ const SignupModal = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <PasswordLabelWrapper>
-              <Label htmlFor="password">Password</Label>
-            </PasswordLabelWrapper>
+            <Label htmlFor="password">Password</Label>
             <Input
               type="password"
               name="password"
@@ -98,127 +107,9 @@ const SignupModal = () => {
 
 export default SignupModal;
 
-// const ModalWrapper = styled.div`
-//   width: 100%;
-//   /* height: calc(100% - 9rem); */
-//   /* filter: blur(8px); */
-//   height: 100%;
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   background: rgba(200, 200, 200, 0.4);
-//   background: #11182766;
-//   backdrop-filter: blur(2px);
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   box-shadow: rgb(255, 255, 255) 0 0 0 0, rgb(147, 197, 253) 0 0 0 3px;
-//   @media screen and (max-width: 575px) {
-//     align-items: flex-end;
-//   }
-// `;
-
-const ModalContainer = styled.div`
-  width: 384px;
-  min-height: 448px;
-  background-color: white;
-  border-radius: 1rem;
-  padding: 2rem 3rem;
-  @media screen and (max-width: 575px) {
-    width: 100%;
-    border-radius: 1rem 1rem 0 0;
-  }
-`;
-
-const TitleWithClose = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-`;
-
-const LoginTitle = styled.div`
-  font-weight: 700;
-  font-size: 2.4rem;
-`;
-
-const CloseButton = styled.button`
-  border-radius: 100%;
-  width: 36px;
-  height: 36px;
-  outline: none;
-  border: 1px solid rgb(209 213 219);
-  cursor: pointer;
-  background: white;
-
-  &:hover {
-    background: rgb(243 244 246);
-  }
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Label = styled.label`
-  font-family: inter;
-  font-size: 1.4rem;
-  margin: 0.8rem 0;
-`;
-
-const Input = styled.input`
-  font-weight: 600;
-  width: 100%;
-  height: 4rem;
-  border: 1px solid rgb(209 213 219);
-  outline: none;
-  border-radius: 10px;
-  padding: 0 1.5rem;
-  font-size: 1.4rem;
-  &::placeholder {
-    color: lightgray;
-  }
-
-  &:hover {
-    border: 1px solid rgb(59 130 246);
-  }
-  &:focus {
-    box-shadow: rgb(255, 255, 255) 0 0 0 0, rgb(147, 197, 253) 0 0 0 3px;
-  }
-`;
-
-const PasswordLabelWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const ForgotPasswordLink = styled.a`
-  font-family: inter;
-  font-size: 1.4rem;
-  margin: 0.8rem 0;
-  color: rgb(55, 97, 251);
-  font-weight: 600;
-`;
-const Button = styled.button`
-  font-weight: 600;
-  height: 3.6rem;
-  background: rgb(56, 97, 251);
-  outline: none;
-  border: none;
-  color: white;
-  padding: 0 1.6rem;
-  border-radius: 10px;
-  cursor: pointer;
+const LoginButton = styled(Button)`
   margin: 2rem 0;
-  font-size: 1.4rem;
-
-  &:hover {
-    background: rgb(11, 64, 255);
-  }
 `;
-const LoginButton = styled(Button)``;
 
 const OrText = styled.div`
   width: 100%;
@@ -246,6 +137,7 @@ const GoogleButton = styled(Button)`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 2rem 0;
 
   &:hover {
     background-color: rgb(209 213 219);
@@ -270,4 +162,8 @@ const RedirectLink = styled.button`
   border: none;
   background: transparent;
   cursor: pointer;
+
+  &:focus {
+    border: 1px solid black;
+  }
 `;

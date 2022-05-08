@@ -172,6 +172,7 @@ const RedirectLink = styled.button`
   border: none;
   background: transparent;
   cursor: pointer;
+
   &:focus {
     border: 1px solid black;
   }
