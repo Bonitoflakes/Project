@@ -10,29 +10,28 @@ const Coin = ({
   marketCap,
 }) => {
   return (
-    <tbody>
-      <Row>
-        <Cell>
-          <img
-            src={image}
-            alt="crypto"
-            width={35}
-            height={35}
-            style={{ width: "35px", height: "35px" }}
-          />
-        </Cell>
-        <Cell>{symbol.toUpperCase()}</Cell>
-        <Cell>{name}</Cell>
-        <Cell>₹{price.toLocaleString("en-IN")}</Cell>
-        <Cell>₹{volume.toLocaleString("en-IN")}</Cell>
-        {priceChange > 0 ? (
-          <CellGreen>{priceChange.toFixed(2)}%</CellGreen>
-        ) : (
-          <CellRed>{priceChange.toFixed(2)}%</CellRed>
-        )}
-        <Cell>₹{marketCap.toLocaleString("en-IN")}</Cell>
-      </Row>
-    </tbody>
+    <Row>
+      <Cell>
+        <img
+          src={image}
+          alt="crypto"
+          width={35}
+          height={35}
+          style={{ width: "35px", height: "35px" }}
+        />
+        <p>{symbol.toUpperCase()}</p>
+      </Cell>
+      {/* <Cell>{symbol.toUpperCase()}</Cell> */}
+      <Cell>{name}</Cell>
+      <Cell>₹{price.toLocaleString("en-IN")}</Cell>
+      <Cell>₹{volume.toLocaleString("en-IN")}</Cell>
+      {priceChange > 0 ? (
+        <CellGreen>{priceChange.toFixed(2)}%</CellGreen>
+      ) : (
+        <CellRed>{priceChange.toFixed(2)}%</CellRed>
+      )}
+      <Cell>₹{marketCap.toLocaleString("en-IN")}</Cell>
+    </Row>
   );
 };
 
