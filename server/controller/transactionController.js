@@ -16,7 +16,7 @@ const getTransactions = async (req, res) => {
 
 const addNewTransaction = async (req, res) => {
   try {
-    console.log(req.body.transactionDetails);
+    // console.log(req.body.transactionDetails);
     const {
       transactionType,
       assetName,
@@ -47,7 +47,11 @@ const addNewTransaction = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ status: false, message: "Error found..." });
+    res.status(400).json({
+      status: false,
+      message: "Error found...",
+      error: error.message,
+    });
   }
 };
 
