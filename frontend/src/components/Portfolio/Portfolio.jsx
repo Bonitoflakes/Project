@@ -25,7 +25,6 @@ const Portfolio = () => {
         );
         console.log(data);
         setUserTransactions(data.transactionDetails);
-        alert(userTransactions);
       } catch (error) {
         console.error(error);
       }
@@ -51,44 +50,50 @@ const Portfolio = () => {
             </Flexspan>
           </AddAssetButton>
         </PortfolioHeader>
-
-        <PortfolioBody>
-          <div className="solidDivWrapper">
-            <div className="solidDiv">Under Construction</div>
-          </div>
-          <RecentTransactions>
-            <OverflowXAuto>
-              <Table>
-                <thead>
-                  <Row>
-                    <Head>Type</Head>
-                    <Head>Asset</Head>
-                    <Head>Quantity</Head>
-                    <Head>Price</Head>
-                    <Head>Total</Head>
-                    <Head>Date & Time</Head>
-                  </Row>
-                </thead>
-                <tbody>
-                  {userTransactions.map((el) => (
-                    <Row key={el._id || Math.random()}>
-                      <Cell>{el.transactionType}</Cell>
-                      <Cell>{el.assetName}</Cell>
-                      <Cell>{el.quantity}</Cell>
-                      <Cell>{el.price}</Cell>
-                      <Cell>{el.total}</Cell>
-                      <Cell>
-                        {el.time}
-                        &nbsp;
-                        {el.date}
-                      </Cell>
+        {userTransactions.length === 0 && (
+          <h1 style={{ marginTop: "20rem", textAlign: "center" }}>
+            Create or add new transactions to view the analysis report
+          </h1>
+        )}
+        {userTransactions.length > 0 && (
+          <PortfolioBody>
+            <div className="solidDivWrapper">
+              <div className="solidDiv">Under Construction</div>
+            </div>
+            <RecentTransactions>
+              <OverflowXAuto>
+                <Table>
+                  <thead>
+                    <Row>
+                      <Head>Type</Head>
+                      <Head>Asset</Head>
+                      <Head>Quantity</Head>
+                      <Head>Price</Head>
+                      <Head>Total</Head>
+                      <Head>Date & Time</Head>
                     </Row>
-                  ))}
-                </tbody>
-              </Table>
-            </OverflowXAuto>
-          </RecentTransactions>
-        </PortfolioBody>
+                  </thead>
+                  <tbody>
+                    {userTransactions.map((el) => (
+                      <Row key={el._id || Math.random()}>
+                        <Cell>{el.transactionType}</Cell>
+                        <Cell>{el.assetName}</Cell>
+                        <Cell>{el.quantity}</Cell>
+                        <Cell>{el.price}</Cell>
+                        <Cell>{el.total}</Cell>
+                        <Cell>
+                          {el.time}
+                          &nbsp;
+                          {el.date}
+                        </Cell>
+                      </Row>
+                    ))}
+                  </tbody>
+                </Table>
+              </OverflowXAuto>
+            </RecentTransactions>
+          </PortfolioBody>
+        )}
       </Container>
       <AddassetsModal
         showAddAssetModel={showAddAssetModel}
