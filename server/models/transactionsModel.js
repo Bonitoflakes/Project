@@ -52,39 +52,75 @@ const transactionSchema = new mongoose.Schema(
 const Transaction = mongoose.model("transaction", transactionSchema);
 
 const onInsert = async (fullDocument) => {
-  console.log(`Full document : `);
-  console.log(fullDocument);
-  const { userID, assetName, price, quantity, total } = fullDocument;
-  let shldWeCreate = null;
+  // console.log(`Full document : `);
+  // console.log(fullDocument);
+
+  const { userID, assetName, price, quantity, total, transactionType } =
+    fullDocument;
   try {
-    const currentCoinHolding = await Holdings.find(
-      {
-        userID: new ObjectId(userID),
-        assetName: assetName,
-      },
-      function (err, result) {
-        if (err) {
-          console.error(err);
-        } else if (result.length > 0) {
-          console.log(`Logging results:`);
-          console.log(result);
-        } else {
-          console.log("no match found");
-          shldWeCreate = true;
-        }
+    /* 
+    findOneAndUpdate takes in the fields to find , values to update , optional parameters new : true - whether to return the document after updation , UPSERT - update if document exists or else insert a documnet into the collection
+    */
+
+    let searchFields = { userID: new ObjectId(userID), assetName };
+    // console.log(`searchFields : ${searchFields}`);
+    // console.log(searchFields);
+
+    let fetchValues = await Holdings.find(searchFields).exec();
+    let fetchValuesCount = await Holdings.find(searchFields).count().exec();
+    // console.log(`fetchValues: ${fetchValuesCount}`);
+
+    let updatedValues;
+
+    if (fetchValuesCount) {
+      // console.log("Data already exists");
+      // destructuring as fetchValues is returned as an array of objects
+      let [data] = fetchValues;
+      // console.log(data);
+      console.log(transactionType);
+      switch (transactionType) {
+        case "BUY":
+          updatedValues = {
+            total_Quantity: data.total_Quantity + quantity,
+            total_Cost: data.total_Cost + total,
+            avg_BuyPrice:
+              (data.total_Cost + total) / (data.total_Quantity + quantity),
+          };
+          break;
+
+        case "SELL":
+          updatedValues = {
+            total_Quantity: data.total_Quantity - quantity,
+          };
+          break;
+
+        default:
+          console.log("----------UNKNOWN TRANSACTION TYPE-------");
+          break;
       }
-    );
-    if (shldWeCreate) {
-      await Holdings.create({
+    } else {
+      // console.log("Data must be created");
+      updatedValues = {
         userID: new ObjectId(userID),
         assetName: assetName,
         total_Quantity: quantity,
         total_Cost: total,
-        total_Profit: 0,
-        avg_BuyPrice: total_Cost / total_Quantity,
-      });
-      shldWeCreate = false;
+        avg_BuyPrice: price,
+      };
     }
+    // console.log(`UpdatedValues to be sent `);
+    // console.log(updatedValues);
+    const myRes = await Holdings.findOneAndUpdate(
+      searchFields,
+      { $set: updatedValues },
+      {
+        new: true,
+        upsert: true,
+      }
+    );
+    // console.log("Value after updation:");
+    // console.log(myRes);
+    //
   } catch (error) {
     console.error(error);
   }
@@ -92,16 +128,14 @@ const onInsert = async (fullDocument) => {
 
 const TransactionReducer = (data) => {
   const { operationType, fullDocument } = data;
+  console.log(`operationType:${operationType}`);
   switch (operationType) {
     case "insert":
-      console.log("insert op");
       onInsert(fullDocument);
       break;
     case "update":
-      console.log("update op");
       break;
     case "delete":
-      console.log("delete op");
       break;
 
     default:
