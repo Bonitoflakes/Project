@@ -6,7 +6,7 @@ const connectDB = async () => {
     // let idx = Math.floor(Math.random() * 3);
     let idx = 0;
     let dbUrl = process.env.MONGO_REPLICATION_SET_URLS.split(",")[idx];
-    const conn = await mongoose.connect(process.env.MONGO_ATLAS_URI || dbUrl, {
+    const conn = await mongoose.connect(dbUrl, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
