@@ -12,23 +12,25 @@ const Portfolio = () => {
   const [showAddAssetModel, setShowAddAssetModel] = useState(false);
   const [userTransactions, setUserTransactions] = useState([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const { data } = await axios.get(
-          "http://localhost:8000/api/user/transaction",
-          {
-            headers: {
-              "access-token": accessToken,
-            },
-          }
-        );
-        console.log(data);
-        setUserTransactions(data.transactionDetails);
-      } catch (error) {
-        console.error(error);
-      }
+  async function fetchData() {
+    try {
+      const { data } = await axios.get(
+        "http://localhost:8000/api/user/transaction",
+        {
+          headers: {
+            "access-token": accessToken,
+          },
+        }
+      );
+      console.log(`Running fetch Data function`);
+      // console.log(data);
+      setUserTransactions(data.transactionDetails);
+    } catch (error) {
+      console.error(error);
     }
+  }
+
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -98,8 +100,7 @@ const Portfolio = () => {
       <AddassetsModal
         showAddAssetModel={showAddAssetModel}
         setShowAddAssetModel={setShowAddAssetModel}
-        setUserTransactions={setUserTransactions}
-        userTransactions={userTransactions}
+        fetchData={fetchData}
       />
     </>
   );

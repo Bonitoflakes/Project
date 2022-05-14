@@ -4,7 +4,6 @@ import axios from "axios";
 import { AuthContext } from "../contexts/authContext";
 import {
   CloseButton,
-  Container,
   Input,
   Label,
   ModalContainer,
@@ -15,33 +14,32 @@ import {
 } from "./utils/UI_Kit";
 import TransactionTypeButtons from "./TransactionTypeButtons";
 
+const initState = {
+  transactionType: "BUY",
+  assetName: "",
+  quantity: 0,
+  price: 0,
+  date: new Date().toLocaleDateString("en-CA", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }),
+  time: String(new Date()).slice(16, 21),
+  total: 0,
+  notes: "",
+  fees: 0,
+};
+
 const AddassetsModal = ({
   showAddAssetModel,
   setShowAddAssetModel,
-  setUserTransactions,
-  userTransactions,
+  fetchData,
 }) => {
   const [showFeesNotes, setShowFeesNotes] = useState(false);
   const { accessToken } = useContext(AuthContext);
-
-  const initState = {
-    transactionType: "BUY",
-    assetName: "",
-    quantity: 0,
-    price: 0,
-    date: new Date().toLocaleDateString("en-CA", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    }),
-    time: String(new Date()).slice(16, 21),
-    total: 0,
-    notes: "",
-    fees: 0,
-  };
-
   const [transactionDetails, setTransactionDetails] = useState(initState);
 
+  // * Two-way binding between total and price
   useEffect(() => {
     setTransactionDetails({
       ...transactionDetails,
@@ -54,7 +52,6 @@ const AddassetsModal = ({
   // * Handles add_asset form submit
   const handleTransaction = (e) => {
     e.preventDefault();
-    console.table(transactionDetails);
     const data = axios.post(
       "http://localhost:8000/api/user/transaction",
       {
@@ -67,9 +64,9 @@ const AddassetsModal = ({
       }
     );
     console.log(`Data sent to the server: ${data}`);
-    setUserTransactions([...userTransactions, transactionDetails]);
     setShowAddAssetModel((prev) => !prev);
     setTransactionDetails(initState);
+    fetchData();
   };
 
   // * handles overall form state changes
