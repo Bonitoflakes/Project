@@ -1,15 +1,16 @@
 {
-  "name": "jwt_auth",
+  "name": "cryptoverse_backend",
   "version": "1.0.0",
-  "description": "Simple authentication tutorial",
+  "description": "My backend server for handling api requests",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon server.js"
+    "dev": "nodemon server.js"
   },
   "author": "Rishab Khivsara",
   "license": "ISC",
   "devDependencies": {
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.15"
   },
   "dependencies": {
@@ -19,7 +20,7 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.2.4",
+    "mongoose": "^6.3.3",
     "validator": "^13.7.0"
   }
 }

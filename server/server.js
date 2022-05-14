@@ -1,16 +1,17 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
+import morgan from "morgan";
 import { connectDB } from "./config/db.js";
 import { router as AuthRouter } from "./routes/authRoutes.js";
 import { router as TransactionRouter } from "./routes/transactionRoutes.js";
-import cors from "cors";
 
 dotenv.config({ path: "./config/config.env" });
 
 const app = express();
 
 app.use(cors());
-
+app.use(morgan("dev"));
 app.use(express.json());
 app.get("/", (req, res) => res.send("Welcome to HOME"));
 app.use("/api/users", AuthRouter);
