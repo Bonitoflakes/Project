@@ -25,6 +25,7 @@ const LoginModal = () => {
     setIsAuthenticated,
     setAccessToken,
     setShowHamburger,
+    baseURL,
   } = useContext(AuthContext);
 
   const handleSubmit = async (event) => {
@@ -32,7 +33,7 @@ const LoginModal = () => {
     console.log(`email : ${email}`);
     console.log(`password : ${password}`);
     try {
-      const user = await axios.post("http://localhost:8000/api/users/login", {
+      const user = await axios.post(`${baseURL}/api/users/login` , {
         email,
         password,
       });

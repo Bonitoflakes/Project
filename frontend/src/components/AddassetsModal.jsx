@@ -35,8 +35,8 @@ const AddassetsModal = ({
   setShowAddAssetModel,
   fetchData,
 }) => {
+  const { accessToken, baseURL } = useContext(AuthContext);
   const [showFeesNotes, setShowFeesNotes] = useState(false);
-  const { accessToken } = useContext(AuthContext);
   const [transactionDetails, setTransactionDetails] = useState(initState);
 
   // * Two-way binding between total and price
@@ -53,7 +53,7 @@ const AddassetsModal = ({
   const handleTransaction = (e) => {
     e.preventDefault();
     const data = axios.post(
-      "http://localhost:8000/api/user/transaction",
+      `${baseURL}/api/user/transaction`,
       {
         transactionDetails,
       },

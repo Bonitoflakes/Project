@@ -8,20 +8,17 @@ import axios from "axios";
 import { AuthContext } from "../../contexts/authContext";
 
 const Portfolio = () => {
-  const { accessToken } = useContext(AuthContext);
+  const { accessToken, baseURL } = useContext(AuthContext);
   const [showAddAssetModel, setShowAddAssetModel] = useState(false);
   const [userTransactions, setUserTransactions] = useState([]);
 
   async function fetchData() {
     try {
-      const data = await axios.get(
-        "http://localhost:8000/api/user/transaction",
-        {
-          headers: {
-            "access-token": accessToken,
-          },
-        }
-      );
+      const data = await axios.get(`${baseURL}/api/user/transaction`, {
+        headers: {
+          "access-token": accessToken,
+        },
+      });
       console.log(`Running fetch Data function`);
       console.log(data);
       const ut = data?.data?.data;

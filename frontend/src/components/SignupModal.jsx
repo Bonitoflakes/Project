@@ -21,7 +21,8 @@ const SignupModal = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { signupModalClose, redirectToLogin } = useContext(AuthContext);
+  const { signupModalClose, redirectToLogin, baseURL } =
+    useContext(AuthContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -29,7 +30,7 @@ const SignupModal = () => {
     console.log(`email : ${email}`);
     console.log(`password : ${password}`);
     try {
-      const data = await axios.post("http://localhost:8000/api/users/signup", {
+      const data = await axios.post(`${baseURL}/api/users/signup`, {
         username,
         email,
         password,

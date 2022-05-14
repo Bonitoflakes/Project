@@ -30,6 +30,9 @@ const AuthProvider = ({ children }) => {
     signupModalOpen();
   };
 
+  let baseURL = "https://cryptoverse-bonitoflakes.herokuapp.com";
+  // baseURL = "http://localhost:8000";
+
   return (
     <AuthContext.Provider
       value={{
@@ -48,6 +51,7 @@ const AuthProvider = ({ children }) => {
         logOut,
         showHamburger,
         setShowHamburger,
+        baseURL,
       }}
     >
       {children}
