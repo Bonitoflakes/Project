@@ -59,9 +59,14 @@ const LoginUser = async (req, res) => {
 
 const LogoutUser = async (req, res) => {
   try {
-    res.removeHeader("access-token");
-    console.log(req.headers);
-    return res.status(200).send(req.headers);
+    delete req.headers["access-token"];
+    return res
+      .status(200)
+      .json({
+        ...req.headers,
+        status: true,
+        message: "User Logged out successfully",
+      });
   } catch (error) {
     console.log(error);
   }
