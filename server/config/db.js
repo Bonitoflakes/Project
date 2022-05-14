@@ -2,10 +2,9 @@ import mongoose from "mongoose";
 
 const connectDB = async () => {
   try {
-    // // connects randomly to the three ports here
-    // let idx = Math.floor(Math.random() * 3);
     let idx = 0;
     let dbUrl = process.env.MONGO_REPLICATION_SET_URLS.split(",")[idx];
+    dbUrl = process.env.MONGO_URI_ATLAS;
     const conn = await mongoose.connect(dbUrl, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
