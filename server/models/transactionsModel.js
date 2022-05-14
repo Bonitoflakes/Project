@@ -128,7 +128,7 @@ const onInsert = async (fullDocument) => {
 
 const TransactionReducer = (data) => {
   const { operationType, fullDocument } = data;
-  console.log(`operationType:${operationType}`);
+  console.log(`Transaction operationType:${operationType}`);
   switch (operationType) {
     case "insert":
       onInsert(fullDocument);

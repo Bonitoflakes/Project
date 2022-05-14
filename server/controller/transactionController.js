@@ -3,12 +3,19 @@ import { ObjectId } from "mongodb";
 
 const getTransactions = async (req, res) => {
   try {
-    const transactionDetails = await Transaction.find({
+    const data = await Transaction.find({
       userID: new ObjectId(req.user.id),
     });
-    res
-      .status(200)
-      .json({ status: true, message: "Data found...", transactionDetails });
+    data.length
+      ? res.status(200).json({
+          status: true,
+          message: "Transactions found...",
+          data,
+        })
+      : res.status(200).json({
+          status: true,
+          message: "No Transactions found...",
+        });
   } catch (error) {
     res.status(400).json({ status: false, message: "No data found..." });
   }
@@ -28,7 +35,8 @@ const addNewTransaction = async (req, res) => {
       notes,
       fees,
     } = req.body.transactionDetails;
-    const transactionDetails = await Transaction.create({
+
+    const data = await Transaction.create({
       userID: req.user.id,
       transactionType,
       assetName,
@@ -40,16 +48,16 @@ const addNewTransaction = async (req, res) => {
       notes,
       fees,
     });
-    res.status(200).json({
+    res.status(201).json({
       status: true,
       message: "Transaction added successfully..",
-      transactionDetails,
+      data,
     });
   } catch (error) {
     console.log(error);
     res.status(400).json({
       status: false,
-      message: "Error found...",
+      message: "Error found while creating transaction...",
       error: error.message,
     });
   }
@@ -57,14 +65,48 @@ const addNewTransaction = async (req, res) => {
 
 const deleteTransaction = async (req, res) => {
   try {
-    console.log(`Delete Transaction`);
-  } catch (error) {}
+    const data = await Transaction.deleteOne({ _id: req.body.id });
+    // console.log(data);
+    data.deletedCount
+      ? res.status(200).json({
+          status: true,
+          message: "Transaction deleted successfully..",
+          n: data.deletedCount,
+        })
+      : res.status(200).json({
+          status: false,
+          message: "Transaction is either missing or already deleted!!",
+        });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: false,
+      message: "Error found while deleting transaction...",
+      error: error.message,
+    });
+  }
 };
 
 const updateTransaction = async (req, res) => {
   try {
-    console.log(`Update Transaction`);
-  } catch (error) {}
+    const updatedValues = req.body.transactionDetails;
+    const data = await Transaction.findOneAndUpdate(
+      { _id: req.body.id },
+      { $set: updatedValues },
+      {
+        new: true,
+        upsert: false,
+      }
+    );
+    res.status(204).send();
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: false,
+      message: "Error found while updating transaction...",
+      error: error.message,
+    });
+  }
 };
 
 export {
