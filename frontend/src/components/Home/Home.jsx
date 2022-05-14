@@ -16,7 +16,7 @@ const Home = () => {
   useEffect(() => {
     axios
       .get(
-        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=100&page=1&sparkline=false"
+        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=20&page=1&sparkline=false"
       )
       .then((res) => {
         setCoins(res.data);
@@ -42,37 +42,30 @@ const Home = () => {
           onChange={handleChange}
           placeholder="🔍 Search any crypto here ...."
         />
-        <OverflowXAuto>
-          <Table>
-            <THead>
-              <Row>
-                <Head>Ticker</Head>
-                <Head>Name</Head>
-                <Head>Price</Head>
-                <Head>Volume</Head>
-                <Head>Change</Head>
-                <Head>Market Cap</Head>
-              </Row>
-            </THead>
-            <tbody>
-              {filteredCoins.map((coin) => {
-                return (
-                  <Coin
-                    key={coin.id}
-                    name={coin.name}
-                    image={coin.image}
-                    symbol={coin.symbol}
-                    volume={coin.total_volume}
-                    marketCap={coin.market_cap}
-                    price={coin.current_price}
-                    priceChange={coin.price_change_percentage_24h}
-                  />
-                );
-              })}
-            </tbody>
-          </Table>
-        </OverflowXAuto>
       </Coincontainer>
+
+      <div>
+        <h1>Cryptocurrency Market</h1>
+      </div>
+      <OverflowXAuto>
+        <Table>
+          <thead>
+            <tr>
+              <Head>#</Head>
+              <Head>Asset</Head>
+              <Head>Market Price</Head>
+              <Head>24% Price</Head>
+              <Head>Market Cap</Head>
+              <Head>Volume</Head>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredCoins.map((coin) => {
+              return <Coin coins={coin} key={coin.id} />;
+            })}
+          </tbody>
+        </Table>
+      </OverflowXAuto>
     </Container>
   );
 };
@@ -114,23 +107,20 @@ const Table = styled.table`
   position: relative;
 `;
 
-const THead = styled.thead``;
-
-const Row = styled.tr``;
-
 const Head = styled.th`
-  font-size: 2rem;
+  font-size: 1.2rem;
   padding: 1rem;
   border-bottom: 1px solid var(--gray-primary);
-  background: white;
+  border-spacing: 0;
+  text-align: right;
   position: sticky;
   top: 0;
   z-index: 10;
+  text-align: right;
 
+  &:nth-child(2),
   &:first-child {
-    position: sticky;
-    font-size: 2rem;
-    padding: 1rem;
+    text-align: left;
     border-bottom: 1px solid var(--gray-primary);
     top: 0;
     background: white;

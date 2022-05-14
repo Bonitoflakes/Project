@@ -14,7 +14,7 @@ const Portfolio = () => {
 
   async function fetchData() {
     try {
-      const { data } = await axios.get(
+      const data = await axios.get(
         "http://localhost:8000/api/user/transaction",
         {
           headers: {
@@ -23,8 +23,9 @@ const Portfolio = () => {
         }
       );
       console.log(`Running fetch Data function`);
-      // console.log(data);
-      setUserTransactions(data.transactionDetails);
+      console.log(data);
+      const ut = data?.data?.data;
+      setUserTransactions(ut || []);
     } catch (error) {
       console.error(error);
     }
@@ -32,6 +33,7 @@ const Portfolio = () => {
 
   useEffect(() => {
     fetchData();
+    console.log(userTransactions.length);
   }, []);
 
   const handleAddAssetButton = () => {
@@ -52,48 +54,34 @@ const Portfolio = () => {
             </Flexspan>
           </AddAssetButton>
         </PortfolioHeader>
-        {userTransactions.length === 0 && (
-          <h1 style={{ marginTop: "20rem", textAlign: "center" }}>
-            Create or add new transactions to view the analysis report
-          </h1>
+
+        {userTransactions?.length === 0 && (
+          <EmptyPortfolioWrapper>
+            <Line />
+            <Line />
+            <Line />
+            <Line />
+            <EmptyPortfolioMessage>
+              <h1>This Portfolio is Empty</h1>
+              <p
+                style={{
+                  fontSize: "1.5rem",
+                  color: "#58667e",
+                  marginTop: "1rem",
+                }}
+              >
+                Add any coins to get started
+              </p>
+            </EmptyPortfolioMessage>
+          </EmptyPortfolioWrapper>
         )}
-        {userTransactions.length > 0 && (
+
+        {userTransactions?.length > 0 && (
           <PortfolioBody>
             <div className="solidDivWrapper">
               <div className="solidDiv">Under Construction</div>
             </div>
-            <RecentTransactions>
-              <OverflowXAuto>
-                <Table>
-                  <thead>
-                    <Row>
-                      <Head>Type</Head>
-                      <Head>Asset</Head>
-                      <Head>Quantity</Head>
-                      <Head>Price</Head>
-                      <Head>Total</Head>
-                      <Head>Date & Time</Head>
-                    </Row>
-                  </thead>
-                  <tbody>
-                    {userTransactions.map((el) => (
-                      <Row key={el._id || Math.random()}>
-                        <Cell>{el.transactionType}</Cell>
-                        <Cell>{el.assetName}</Cell>
-                        <Cell>{el.quantity}</Cell>
-                        <Cell>{el.price}</Cell>
-                        <Cell>{el.total}</Cell>
-                        <Cell>
-                          {el.time}
-                          &nbsp;
-                          {el.date}
-                        </Cell>
-                      </Row>
-                    ))}
-                  </tbody>
-                </Table>
-              </OverflowXAuto>
-            </RecentTransactions>
+            <TransactionTable userTransactions={userTransactions} />
           </PortfolioBody>
         )}
       </Container>
@@ -158,38 +146,22 @@ const SvgContainerSpan = styled.span`
   margin-right: 0.6rem;
 `;
 
-const RecentTransactions = styled.div`
-  width: 100%;
+const EmptyPortfolioWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 10rem;
 `;
 
-const OverflowXAuto = styled.div`
-  overflow-x: auto;
-  width: 100%;
-`;
-
-const Table = styled.table`
-  border-spacing: 0;
-  width: 100%;
-  @media screen and (max-width: 1023px) {
-    margin-top: 3rem;
-  }
-`;
-
-const Row = styled.tr`
-  border-spacing: 0;
-`;
-
-const Head = styled.th`
-  font-size: 2rem;
-  padding: 1rem;
-  border-bottom: 1px solid var(--gray-primary);
-  border-spacing: 0;
-`;
-
-const Cell = styled.td`
-  padding: 2rem 1rem;
-  font-size: 1.4rem;
-  border-bottom: 1px solid black;
-  border-bottom: 1px solid var(--gray-primary);
+const EmptyPortfolioMessage = styled.div`
+  position: absolute;
   text-align: center;
+`;
+
+const Line = styled.div`
+  height: 54px;
+  width: 100%;
+  border-bottom: 1px solid #eff2f5;
 `;
