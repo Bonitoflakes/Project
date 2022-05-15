@@ -4,7 +4,7 @@ const connectDB = async () => {
   try {
     let idx = 0;
     let dbUrl = process.env.MONGO_REPLICATION_SET_URLS.split(",")[idx];
-    dbUrl = process.env.MONGO_URI_ATLAS;
+    // dbUrl = process.env.MONGO_URI_ATLAS;
     const conn = await mongoose.connect(dbUrl, {
       useNewUrlParser: true,
       useUnifiedTopology: true,

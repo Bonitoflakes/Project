@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 import { Holdings } from "./holdingsModel.js";
 import { ObjectId } from "mongodb";
+import axios from "axios";
 
 const transactionSchema = new mongoose.Schema(
   {
@@ -52,45 +53,60 @@ const transactionSchema = new mongoose.Schema(
 const Transaction = mongoose.model("transaction", transactionSchema);
 
 const onInsert = async (fullDocument) => {
-  // console.log(`Full document : `);
-  // console.log(fullDocument);
-
   const { userID, assetName, price, quantity, total, transactionType } =
     fullDocument;
   try {
-    /* 
-    findOneAndUpdate takes in the fields to find , values to update , optional parameters new : true - whether to return the document after updation , UPSERT - update if document exists or else insert a documnet into the collection
-    */
-
     let searchFields = { userID: new ObjectId(userID), assetName };
-    // console.log(`searchFields : ${searchFields}`);
-    // console.log(searchFields);
 
     let fetchValues = await Holdings.find(searchFields).exec();
-    let fetchValuesCount = await Holdings.find(searchFields).count().exec();
-    // console.log(`fetchValues: ${fetchValuesCount}`);
-
+    let fetchValuesCount = fetchValues.length;
     let updatedValues;
 
+    let getPriceFromAPI =
+      await axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=${assetName}&vs_currencies=usd
+`);
     if (fetchValuesCount) {
-      // console.log("Data already exists");
       // destructuring as fetchValues is returned as an array of objects
       let [data] = fetchValues;
       // console.log(data);
-      console.log(transactionType);
+
+      let currentPrice;
+      let tq;
+      let tc;
+      let totalProfit;
+
       switch (transactionType) {
         case "BUY":
+          currentPrice = parseFloat(getPriceFromAPI.data.bitcoin.usd);
+          tq = data.total_Quantity + quantity;
+          tc = data.total_Cost + total;
+          totalProfit = currentPrice * tq - tc;
+
           updatedValues = {
-            total_Quantity: data.total_Quantity + quantity,
-            total_Cost: data.total_Cost + total,
-            avg_BuyPrice:
-              (data.total_Cost + total) / (data.total_Quantity + quantity),
+            total_Quantity: tq,
+            total_Cost: tc,
+            avg_BuyPrice: tc / tq,
+            currentPrice,
+            total_Profit: totalProfit,
+            ROI: ((totalProfit / tc) * 100).toFixed(2),
+            currentValue: currentPrice * tq,
           };
           break;
 
         case "SELL":
+          currentPrice = parseFloat(getPriceFromAPI.data.bitcoin.usd);
+          tq = data.total_Quantity - quantity;
+          tc = data.total_Cost;
+          totalProfit = currentPrice * tq - tc;
+
           updatedValues = {
-            total_Quantity: data.total_Quantity - quantity,
+            total_Quantity: tq,
+            total_Cost: tc,
+            avg_BuyPrice: tc / tq,
+            currentPrice,
+            total_Profit: totalProfit,
+            ROI: ((totalProfit / tc) * 100).toFixed(2),
+            currentValue: currentPrice * tq,
           };
           break;
 
@@ -99,18 +115,25 @@ const onInsert = async (fullDocument) => {
           break;
       }
     } else {
-      // console.log("Data must be created");
+      console.log("Data must be created");
+      let cost = total;
+      let currentPrice = parseFloat(getPriceFromAPI.data.bitcoin.usd);
+      let totalProfit = currentPrice * quantity - cost;
+
       updatedValues = {
         userID: new ObjectId(userID),
         assetName: assetName,
         total_Quantity: quantity,
-        total_Cost: total,
+        total_Cost: cost,
         avg_BuyPrice: price,
+        currentPrice,
+        total_Profit: totalProfit,
+        ROI: ((totalProfit / cost) * 100).toFixed(2),
+        currentValue: currentPrice * quantity,
       };
     }
-    // console.log(`UpdatedValues to be sent `);
-    // console.log(updatedValues);
-    const myRes = await Holdings.findOneAndUpdate(
+
+    const data = await Holdings.findOneAndUpdate(
       searchFields,
       { $set: updatedValues },
       {
@@ -118,9 +141,6 @@ const onInsert = async (fullDocument) => {
         upsert: true,
       }
     );
-    // console.log("Value after updation:");
-    // console.log(myRes);
-    //
   } catch (error) {
     console.error(error);
   }

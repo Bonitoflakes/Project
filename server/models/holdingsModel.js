@@ -1,4 +1,4 @@
-import  mongoose  from "mongoose";
+import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const holdingsSchema = new mongoose.Schema(
@@ -26,6 +26,15 @@ const holdingsSchema = new mongoose.Schema(
     avg_BuyPrice: {
       type: Number,
       required: true,
+    },
+    currentPrice: {
+      type: Number,
+    },
+    ROI: {
+      type: Number,
+    },
+    currentValue: {
+      type: Number,
     },
   },
   { collection: "holdings", timestamps: true }
