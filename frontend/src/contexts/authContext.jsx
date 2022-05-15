@@ -30,7 +30,7 @@ const AuthProvider = ({ children }) => {
     signupModalOpen();
   };
 
-  let baseURL = "https://cryptoverse-bonitoflakes.herokuapp.com";
+  let baseURL = "https://cryptoverse2-bontioflakes.herokuapp.com";
   // baseURL = "http://localhost:8000";
 
   return (

@@ -14,10 +14,10 @@
   "author": "Rishab Khivsara",
   "license": "ISC",
   "devDependencies": {
-    "morgan": "^1.10.0",
     "nodemon": "^2.0.15"
   },
   "dependencies": {
+    "morgan": "^1.10.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
