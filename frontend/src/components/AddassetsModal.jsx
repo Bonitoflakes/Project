@@ -117,10 +117,10 @@ const AddassetsModal = ({
                 required
               />
               <datalist id="browsers">
-                <option value="BTC">₿ Bitcoin</option>
-                <option value="BNB">Binance</option>
-                <option value="BUSD">Binance USD</option>
-                <option value="USDT">Tether USDT</option>
+                <option value="Bitcoin">BTC</option>
+                <option value="Binancecoin">BNB</option>
+                <option value="Binance-usd">BUSD</option>
+                <option value="Tether">USDT</option>
               </datalist>
 
               <Label>Quantity</Label>
