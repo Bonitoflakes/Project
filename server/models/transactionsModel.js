@@ -65,15 +65,25 @@ const onInsert = async (fullDocument) => {
     let getPriceFromAPI = await axios.get(
       `https://api.coingecko.com/api/v3/simple/price?ids=${assetName}&vs_currencies=usd`
     );
-    // when no internet
+
+    //* when no internet
     // let getPriceFromAPI = {
-    // data: {
-    //   ${assetName }: {
-    //     usd:100
-    //   }
-    // }
-    // }
-    
+    //   data: {
+    //     bitcoin: {
+    //       usd: 30000,
+    //     },
+    //     binancecoin: {
+    //       usd: 300,
+    //     },
+    //     "binance-usd": {
+    //       usd: 1,
+    //     },
+    //     tether: {
+    //       usd: 1,
+    //     },
+    //   },
+    // };
+
     let assetnameLowerCased = assetName.toLowerCase();
     if (fetchValuesCount) {
       // destructuring as fetchValues is returned as an array of objects
