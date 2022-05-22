@@ -62,22 +62,34 @@ const onInsert = async (fullDocument) => {
     let fetchValuesCount = fetchValues.length;
     let updatedValues;
 
-    let getPriceFromAPI =
-      await axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=${assetName}&vs_currencies=usd
-`);
+    let getPriceFromAPI = await axios.get(
+      `https://api.coingecko.com/api/v3/simple/price?ids=${assetName}&vs_currencies=usd`
+    );
+    // when no internet
+    // let getPriceFromAPI = {
+    // data: {
+    //   ${assetName }: {
+    //     usd:100
+    //   }
+    // }
+    // }
+    
+    let assetnameLowerCased = assetName.toLowerCase();
     if (fetchValuesCount) {
       // destructuring as fetchValues is returned as an array of objects
       let [data] = fetchValues;
       // console.log(data);
 
       let currentPrice;
-      let tq;
-      let tc;
+      let tq; //total Quantity
+      let tc; //total Cost
       let totalProfit;
 
       switch (transactionType) {
         case "BUY":
-          currentPrice = parseFloat(getPriceFromAPI.data.bitcoin.usd);
+          currentPrice = parseFloat(
+            getPriceFromAPI.data[assetnameLowerCased].usd
+          );
           tq = data.total_Quantity + quantity;
           tc = data.total_Cost + total;
           totalProfit = currentPrice * tq - tc;
@@ -94,7 +106,9 @@ const onInsert = async (fullDocument) => {
           break;
 
         case "SELL":
-          currentPrice = parseFloat(getPriceFromAPI.data.bitcoin.usd);
+          currentPrice = parseFloat(
+            getPriceFromAPI.data[assetnameLowerCased].usd
+          );
           tq = data.total_Quantity - quantity;
           tc = data.total_Cost;
           totalProfit = currentPrice * tq - tc;
@@ -102,7 +116,6 @@ const onInsert = async (fullDocument) => {
           updatedValues = {
             total_Quantity: tq,
             total_Cost: tc,
-            avg_BuyPrice: tc / tq,
             currentPrice,
             total_Profit: totalProfit,
             ROI: ((totalProfit / tc) * 100).toFixed(2),
@@ -117,7 +130,9 @@ const onInsert = async (fullDocument) => {
     } else {
       console.log("Data must be created");
       let cost = total;
-      let currentPrice = parseFloat(getPriceFromAPI.data.bitcoin.usd);
+      let currentPrice = parseFloat(
+        getPriceFromAPI.data[assetnameLowerCased].usd
+      );
       let totalProfit = currentPrice * quantity - cost;
 
       updatedValues = {
@@ -145,6 +160,8 @@ const onInsert = async (fullDocument) => {
     console.error(error);
   }
 };
+
+const onUpdate = async (fullDocument) => {};
 
 const TransactionReducer = (data) => {
   const { operationType, fullDocument } = data;
