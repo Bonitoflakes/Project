@@ -2,12 +2,10 @@ import { useContext } from "react";
 import styled from "styled-components";
 import logo from "../assets/logo.svg";
 import hamburger from "../assets/hamburger.svg";
-import { useState } from "react";
 import { Container } from "./utils/UI_Kit";
 import { FaUserAlt } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../contexts/authContext";
-import { useDisableBodyScroll } from "./utils/useDisableBodyScrollHook";
 
 const Navbar = () => {
   const {
@@ -23,7 +21,7 @@ const Navbar = () => {
   return (
     <Container>
       <Nav>
-        <Logo href="/">
+        <Logo to="/">
           <img src={logo} alt="Logo" title="Go To Homepage" />
         </Logo>
 
@@ -87,7 +85,7 @@ const Nav = styled.nav`
   position: relative;
 `;
 
-const Logo = styled.a`
+const Logo = styled(NavLink)`
   cursor: pointer;
   color: black;
 `;
