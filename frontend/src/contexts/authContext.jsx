@@ -31,7 +31,7 @@ const AuthProvider = ({ children }) => {
   };
 
   let baseURL = "https://cryptoverse2-bontioflakes.herokuapp.com";
-  baseURL = "http://localhost:8000";
+  // baseURL = "http://localhost:8000";
 
   return (
     <AuthContext.Provider
