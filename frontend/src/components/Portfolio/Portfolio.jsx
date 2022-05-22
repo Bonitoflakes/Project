@@ -23,15 +23,12 @@ const Portfolio = () => {
           "access-token": accessToken,
         },
       });
-      let chartData;
-      setTimeout(async () => {
-        chartData = await axios.get(`${baseURL}/api/user/holdings`, {
-          headers: {
-            "access-token": accessToken,
-          },
-        });
-        setUserHoldings(chartData?.data?.data || []);
-      }, 1000);
+      let chartData = await axios.get(`${baseURL}/api/user/holdings`, {
+        headers: {
+          "access-token": accessToken,
+        },
+      });
+      setUserHoldings(chartData?.data?.data || []);
 
       console.log(`Running fetch Data function`);
       console.log(chartData);
