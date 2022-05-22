@@ -45,6 +45,8 @@ const PlaceholderWrapper = styled.div`
 const FlexContainer = styled.div`
   display: flex;
   width: 100%;
+  align-items: center;
+
   @media (max-width: 1200px) {
     flex-direction: column-reverse;
   }
@@ -57,6 +59,10 @@ const LeftActions = styled.div`
   align-items: flex-start;
   justify-content: start;
   margin: 2rem 4rem;
+
+  @media (max-width: 585px) {
+    margin: 2rem;
+  }
   /* background-color: orange; */
 `;
 

@@ -1,16 +1,20 @@
+import { useState, useContext, useEffect } from "react";
+import axios from "axios";
+import styled from "styled-components";
+import { AuthContext } from "../../contexts/authContext";
+
+import { Container, Button } from "../utils/UI_Kit";
 import plusCircle from "../../assets/plus-circle.svg";
 import AddassetsModal from "../AddassetsModal";
-import { Container, Button } from "../utils/UI_Kit";
-import { useState, useContext, useEffect } from "react";
-import styled from "styled-components";
 import TransactionTable from "./TransactionTable";
-import axios from "axios";
-import { AuthContext } from "../../contexts/authContext";
+import HoldingTable from "./HoldingTable";
+import { PortfolioChart } from "./PortfolioChart";
 
 const Portfolio = () => {
   const { accessToken, baseURL } = useContext(AuthContext);
   const [showAddAssetModel, setShowAddAssetModel] = useState(false);
   const [userTransactions, setUserTransactions] = useState([]);
+  const [userHoldings, setUserHoldings] = useState([]);
 
   async function fetchData() {
     try {
@@ -19,8 +23,18 @@ const Portfolio = () => {
           "access-token": accessToken,
         },
       });
+      let chartData;
+      setTimeout(async () => {
+        chartData = await axios.get(`${baseURL}/api/user/holdings`, {
+          headers: {
+            "access-token": accessToken,
+          },
+        });
+        setUserHoldings(chartData?.data?.data || []);
+      }, 1000);
+
       console.log(`Running fetch Data function`);
-      console.log(data);
+      console.log(chartData);
       const ut = data?.data?.data;
       setUserTransactions(ut || []);
     } catch (error) {
@@ -30,7 +44,6 @@ const Portfolio = () => {
 
   useEffect(() => {
     fetchData();
-    console.log(userTransactions.length);
   }, []);
 
   const handleAddAssetButton = () => {
@@ -73,12 +86,53 @@ const Portfolio = () => {
           </EmptyPortfolioWrapper>
         )}
 
-        {userTransactions?.length > 0 && (
+        {userTransactions?.length > 0 && userHoldings?.length > 0 && (
           <PortfolioBody>
             <div className="solidDivWrapper">
-              <div className="solidDiv">Under Construction</div>
+              <h1 style={{ margin: "2rem", alignSelf: "start" }}>
+                Holdings Share
+              </h1>
+              <div
+                style={{
+                  width: "192px",
+                  height: "192px",
+                }}
+              >
+                <PortfolioChart userHoldings={userHoldings} />
+              </div>
             </div>
-            <TransactionTable userTransactions={userTransactions} />
+            {/* // ?? End of ChartSection */}
+
+            <div
+              style={{
+                width: "100%",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "100%",
+                }}
+              >
+                <h1>Your Assets</h1>
+                <HoldingTable userHoldings={userHoldings} />
+              </div>
+              {/* // ?? End of HoldingsTable */}
+
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "100%",
+                  marginTop: "6rem",
+                }}
+              >
+                <h1>Recent Transactions</h1>
+                <TransactionTable userTransactions={userTransactions} />
+              </div>
+              {/* // ?? End of Transaction-Section */}
+            </div>
           </PortfolioBody>
         )}
       </Container>

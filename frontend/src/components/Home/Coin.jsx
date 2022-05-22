@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import millify from "millify";
+import { formatter, compactFormmater } from "../utils/currencyFormatter.js";
 
 const Coin = ({ coins }) => {
   return (
-    <Row >
+    <Row>
       <Cell>{coins.market_cap_rank}</Cell>
       <AssetCell>
         <img
@@ -16,19 +16,15 @@ const Coin = ({ coins }) => {
         &nbsp;
         <p>{coins.symbol.toUpperCase()}</p>
       </AssetCell>
-      <Cell>₹{coins.current_price.toLocaleString("en-IN")}</Cell>
+      <Cell>{formatter.format(coins.current_price)}</Cell>
 
       {coins.price_change_percentage_24h > 0 ? (
         <CellGreen>{coins.price_change_percentage_24h.toFixed(2)}%</CellGreen>
       ) : (
         <CellRed>{coins.price_change_percentage_24h.toFixed(2)}%</CellRed>
       )}
-      <Cell>
-        ₹{millify(coins.market_cap, { precision: 3 }).toLocaleString("en-IN")}
-      </Cell>
-      <Cell>
-        ₹{millify(coins.total_volume, { precision: 3 }).toLocaleString("en-IN")}
-      </Cell>
+      <Cell>{compactFormmater.format(coins.market_cap)}</Cell>
+      <Cell>{compactFormmater.format(coins.total_volume)}</Cell>
     </Row>
   );
 };
@@ -73,5 +69,5 @@ const CellGreen = styled(Cell)`
   color: green;
 `;
 const CellRed = styled(Cell)`
-  color: red;
+  color: crimson;
 `;

@@ -1,8 +1,7 @@
 import styled from "styled-components";
+import { formatter, percentFormatter } from "../utils/currencyFormatter.js";
 
-import { formatter } from "../utils/currencyFormatter.js";
-
-const TransactionTable = ({ userTransactions }) => {
+const HoldingTable = ({ userHoldings }) => {
   return (
     <>
       <RecentTransactions>
@@ -10,35 +9,38 @@ const TransactionTable = ({ userTransactions }) => {
           <Table>
             <thead>
               <tr>
-                <Head>Type</Head>
-                <Head>Quantity</Head>
+                <Head>Asset</Head>
                 <Head>Price</Head>
-                <Head>Total</Head>
-                <Head>Date & Time</Head>
+                <Head>Profit</Head>
+                <Head>Avg. Price</Head>
+                <Head>Holdings</Head>
               </tr>
             </thead>
             <tbody>
-              {userTransactions.map((el) => (
+              {userHoldings.map((el) => (
                 <Row key={el._id || Math.random()}>
-                  <Cell>
-                    {el.transactionType} {el.assetName}
-                  </Cell>
+                  <Cell>{el.assetName}</Cell>
+                  <Cell>{formatter.format(el.currentPrice)} </Cell>
 
-                  {el.transactionType === "BUY" ? (
+                  {el.total_Profit > 0 ? (
                     <CellGreen>
-                      {el.quantity.toFixed(2)} {el.assetName}
+                      {formatter.format(el.total_Profit)}
+                      <br />
+                      {percentFormatter.format(el.ROI / 100)}
                     </CellGreen>
                   ) : (
                     <CellRed>
-                      {el.quantity.toFixed(2)} {el.assetName}
+                      {formatter.format(el.total_Profit)}
+                      <br />
+                      {el.ROI.toFixed(2)}
                     </CellRed>
                   )}
-                  <Cell>{formatter.format(el.price)}</Cell>
-                  <Cell>{formatter.format(el.total)}</Cell>
+
+                  <Cell>{formatter.format(el.avg_BuyPrice)}</Cell>
                   <Cell>
-                    {el.date}
+                    {formatter.format(el.currentValue)}
                     <br />
-                    {el.time}
+                    {el.total_Quantity.toFixed(2)}
                   </Cell>
                 </Row>
               ))}
@@ -50,7 +52,7 @@ const TransactionTable = ({ userTransactions }) => {
   );
 };
 
-export default TransactionTable;
+export default HoldingTable;
 
 const RecentTransactions = styled.div`
   width: 100%;
@@ -103,14 +105,10 @@ const Cell = styled.td`
 
 const CellGreen = styled(Cell)`
   color: #38aa5e;
-  font-weight: 600;
   &::before {
     content: "+";
   }
 `;
 const CellRed = styled(Cell)`
   color: crimson;
-  &::before {
-    content: "-";
-  }
 `;
