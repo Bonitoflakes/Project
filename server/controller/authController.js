@@ -23,6 +23,9 @@ const signUpNewUser = async (req, res) => {
   }
 };
 
+// @desc Login route
+// @Method POST
+// @Explanantion uses a static method on the user model called login to hash and compare the password
 const LoginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -60,13 +63,11 @@ const LoginUser = async (req, res) => {
 const LogoutUser = async (req, res) => {
   try {
     delete req.headers["access-token"];
-    return res
-      .status(200)
-      .json({
-        ...req.headers,
-        status: true,
-        message: "User Logged out successfully",
-      });
+    return res.status(200).json({
+      ...req.headers,
+      status: true,
+      message: "User Logged out successfully",
+    });
   } catch (error) {
     console.log(error);
   }
