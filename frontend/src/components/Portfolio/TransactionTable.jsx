@@ -1,8 +1,39 @@
 import styled from "styled-components";
-
+import axios from "axios";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../contexts/authContext";
 import { formatter } from "../utils/currencyFormatter.js";
+import { Button } from "../utils/UI_Kit";
+import EditAssetModal from "../EditAssetsModal";
 
-const TransactionTable = ({ userTransactions }) => {
+const TransactionTable = ({ userTransactions, fetchData }) => {
+  const { accessToken, baseURL } = useContext(AuthContext);
+  const [showEditTransactionModal, setShowEditTransactionModal] = useState(false);
+  const [currentTransactionToEdit, setCurrentTransactionToEdit] = useState({});
+
+  const handleDeleteTransaction = async (id) => {
+    console.log("Delete Transaction");
+    console.log(id);
+    try {
+      const data = await axios.delete(`${baseURL}/api/user/transaction?id=${id}`, {
+        headers: {
+          "access-token": accessToken,
+        },
+      });
+      fetchData();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleEditTransaction = async (el) => {
+    console.log("Edit Transaction");
+    console.log(el);
+    setCurrentTransactionToEdit(el);
+    setShowEditTransactionModal((prev) => !prev);
+  };
+
   return (
     <>
       <RecentTransactions>
@@ -15,6 +46,7 @@ const TransactionTable = ({ userTransactions }) => {
                 <Head>Price</Head>
                 <Head>Total</Head>
                 <Head>Date & Time</Head>
+                <Head>Options</Head>
               </tr>
             </thead>
             <tbody>
@@ -40,12 +72,25 @@ const TransactionTable = ({ userTransactions }) => {
                     <br />
                     {el.time}
                   </Cell>
+                  <Cell>
+                    <Button onClick={() => handleDeleteTransaction(el._id)}>
+                      Delete
+                    </Button>
+                    <Button onClick={() => handleEditTransaction(el)}>Edit</Button>
+                  </Cell>
                 </Row>
               ))}
             </tbody>
           </Table>
         </OverflowXAuto>
       </RecentTransactions>
+      <EditAssetModal
+        showEditTransactionModal={showEditTransactionModal}
+        setShowEditTransactionModal={setShowEditTransactionModal}
+        fetchData={fetchData}
+        currentTransactionToEdit={currentTransactionToEdit}
+        setCurrentTransactionToEdit={setCurrentTransactionToEdit}
+      />
     </>
   );
 };
