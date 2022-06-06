@@ -184,7 +184,7 @@ const reComputeHoldings = async (transactionArray, userID, assetName) => {
   let getPriceFromAPI = await axios.get(
     `https://api.coingecko.com/api/v3/simple/price?ids=${transactionArray[0].assetName}&vs_currencies=usd`
   );
-  console.log(getPriceFromAPI);
+  // console.log(getPriceFromAPI);
 
   let assetnameLowerCased = transactionArray[0].assetName.toLowerCase();
   let currentPrice = parseFloat(getPriceFromAPI.data[assetnameLowerCased].usd);
@@ -194,10 +194,10 @@ const reComputeHoldings = async (transactionArray, userID, assetName) => {
   let updatedValues;
 
   transactionArray.map(async (el) => {
-    console.log(el.transactionType);
-    console.log(el.quantity);
-    console.log(el.total);
-    console.log(assetnameLowerCased);
+    // console.log(el.transactionType);
+    // console.log(el.quantity);
+    // console.log(el.total);
+    // console.log(assetnameLowerCased);
 
     switch (el.transactionType) {
       case "BUY":
@@ -246,9 +246,14 @@ const reComputeHoldings = async (transactionArray, userID, assetName) => {
       upsert: false,
     }
   );
-  console.log(updatedValues);
-  console.log("----------------------------------");
-  console.log(data);
+
+  // console.log(updatedValues);
+  // console.log("----------------------------------");
+  // console.log(data);
+};
+
+const onDelete = async (id) => {
+  console.log(id);
 };
 
 const TransactionReducer = (data) => {
@@ -269,6 +274,9 @@ const TransactionReducer = (data) => {
       break;
 
     case "delete":
+      console.log(`Data during Delete`);
+      console.log(data);
+      onDelete(documentKey)
       break;
 
     default:

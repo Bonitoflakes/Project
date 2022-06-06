@@ -63,9 +63,30 @@ const addNewTransaction = async (req, res) => {
   }
 };
 
+const updateTransaction = async (req, res) => {
+  try {
+    const data = await Transaction.findOneAndUpdate(
+      { _id: req.body.id },
+      { $set: req.body.transactionDetails },
+      {
+        new: true,
+        upsert: false,
+      }
+    );
+    return res.status(204).send();
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: false,
+      message: "Error found while updating transaction...",
+      error: error.message,
+    });
+  }
+};
+
 const deleteTransaction = async (req, res) => {
   try {
-    const data = await Transaction.deleteOne({ _id: req.body.id });
+    const data = await Transaction.deleteOne({ _id: req.query.id });
     // console.log(data);
     data.deletedCount
       ? res.status(200).json({
@@ -87,31 +108,4 @@ const deleteTransaction = async (req, res) => {
   }
 };
 
-const updateTransaction = async (req, res) => {
-  try {
-    const updatedValues = req.body.transactionDetails;
-    const data = await Transaction.findOneAndUpdate(
-      { _id: req.body.id },
-      { $set: updatedValues },
-      {
-        new: true,
-        upsert: false,
-      }
-    );
-    res.status(204).send();
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({
-      status: false,
-      message: "Error found while updating transaction...",
-      error: error.message,
-    });
-  }
-};
-
-export {
-  addNewTransaction,
-  getTransactions,
-  deleteTransaction,
-  updateTransaction,
-};
+export { addNewTransaction, getTransactions, deleteTransaction, updateTransaction };
