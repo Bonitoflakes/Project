@@ -12,7 +12,7 @@ const connectDB = async () => {
     console.log(
       `Connected to the database successfully, ${conn.connection.host}`
     );
-    console.log(`Available Models in the database:  ${mongoose.modelNames()}`);
+    console.log(`Available Collections in the database:  ${mongoose.modelNames()}`);
   } catch (error) {
     console.log(`Error while connecting to the database : ${error}`);
   }
