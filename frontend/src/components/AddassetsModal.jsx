@@ -13,6 +13,7 @@ import {
   TitleWrapper,
 } from "./utils/UI_Kit";
 import TransactionTypeButtons from "./TransactionTypeButtons";
+import { useDisableBodyScroll } from "./utils/useDisableBodyScrollHook";
 
 const initState = {
   transactionType: "BUY",
@@ -30,22 +31,18 @@ const initState = {
   fees: 0,
 };
 
-const AddassetsModal = ({
-  showAddAssetModel,
-  setShowAddAssetModel,
-  fetchData,
-}) => {
+const AddassetsModal = ({ showAddAssetModel, setShowAddAssetModel, fetchData }) => {
   const { accessToken, baseURL } = useContext(AuthContext);
   const [showFeesNotes, setShowFeesNotes] = useState(false);
   const [transactionDetails, setTransactionDetails] = useState(initState);
+
+  useDisableBodyScroll(showAddAssetModel);
 
   // * Two-way binding between total and price
   useEffect(() => {
     setTransactionDetails({
       ...transactionDetails,
-      total: (transactionDetails.price * transactionDetails.quantity).toFixed(
-        2
-      ),
+      total: (transactionDetails.price * transactionDetails.quantity).toFixed(2),
     });
   }, [transactionDetails.quantity, transactionDetails.price]);
 
@@ -93,9 +90,7 @@ const AddassetsModal = ({
           <ModalContainer width={0}>
             <TitleWrapper>
               <Title>Add Assets</Title>
-              <CloseButton
-                onClick={() => setShowAddAssetModel((prev) => !prev)}
-              >
+              <CloseButton onClick={() => setShowAddAssetModel((prev) => !prev)}>
                 X
               </CloseButton>
             </TitleWrapper>
@@ -121,6 +116,14 @@ const AddassetsModal = ({
                 <option value="Binancecoin">BNB</option>
                 <option value="Binance-usd">BUSD</option>
                 <option value="Tether">USDT</option>
+                <option value="Ethereum">ETH</option>
+                <option value="Dogecoin">DOGE</option>
+                <option value="Solana">SOL</option>
+                <option value="Terra">LUNA</option>
+                <option value="Avalanche">AVAX</option>
+                <option value="Cardano">ADA</option>
+                <option value="Shiba-Inu">SHIB</option>
+                <option value="Polygon">MATIC</option>
               </datalist>
 
               <Label>Quantity</Label>
@@ -226,9 +229,7 @@ const AddassetsModal = ({
                   + Fees,Notes
                 </AddFeesNotes>
               )}
-              <AddTransactionButton type="submit">
-                Add Transaction
-              </AddTransactionButton>
+              <AddTransactionButton type="submit">Add Transaction</AddTransactionButton>
             </form>
           </ModalContainer>
         </ModalWrapper>

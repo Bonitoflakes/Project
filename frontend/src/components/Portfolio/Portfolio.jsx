@@ -2,7 +2,6 @@ import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { AuthContext } from "../../contexts/authContext";
-
 import { Container, Button } from "../utils/UI_Kit";
 import plusCircle from "../../assets/plus-circle.svg";
 import AddassetsModal from "../AddassetsModal";
@@ -86,9 +85,7 @@ const Portfolio = () => {
         {userTransactions?.length > 0 && userHoldings?.length > 0 && (
           <PortfolioBody>
             <div className="solidDivWrapper">
-              <h1 style={{ margin: "2rem", alignSelf: "start" }}>
-                Holdings Share
-              </h1>
+              <h1 style={{ margin: "2rem", alignSelf: "start" }}>Holdings Share</h1>
               <div
                 style={{
                   width: "192px",
@@ -126,7 +123,10 @@ const Portfolio = () => {
                 }}
               >
                 <h1>Recent Transactions</h1>
-                <TransactionTable userTransactions={userTransactions} />
+                <TransactionTable
+                  userTransactions={userTransactions}
+                  fetchData={fetchData}
+                />
               </div>
               {/* // ?? End of Transaction-Section */}
             </div>
