@@ -2,6 +2,7 @@ import {useContext} from "react";
 import { Button, Container } from "../utils/UI_Kit";
 import styled from "styled-components";
 import guestPorfolio from "../../assets/portfolio-guest-preview.png";
+import { AuthContext } from "../../contexts/authContext";
 
 const PlaceholderPortfolio = () => {
   const {
