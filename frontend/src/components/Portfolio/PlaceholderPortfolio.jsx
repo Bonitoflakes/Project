@@ -1,9 +1,14 @@
-import React from "react";
+import {useContext} from "react";
 import { Button, Container } from "../utils/UI_Kit";
 import styled from "styled-components";
 import guestPorfolio from "../../assets/portfolio-guest-preview.png";
 
 const PlaceholderPortfolio = () => {
+  const {
+    loginModalOpen,
+    signupModalOpen,
+  } = useContext(AuthContext);
+
   return (
     <>
       <Container>
@@ -18,8 +23,8 @@ const PlaceholderPortfolio = () => {
                 customization and much more.
               </TextPara>
               <ButtonWrapper>
-                <LoginButton>Login</LoginButton>
-                <Button>Signup</Button>
+                <LoginButton onClick={loginModalOpen}>Login</LoginButton>
+                <Button onClick={signupModalOpen}>Signup</Button>
               </ButtonWrapper>
             </LeftActions>
 
